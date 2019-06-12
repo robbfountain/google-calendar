@@ -1,8 +1,10 @@
 <?php
 
 
-Route::prefix('calendar')->group(function() {
-    Route::get('oauth2callback','CalendarOauth2Controller@callback')
-        ->name('calendar.oauth.callback');
-});
+Route::prefix('calendar')
+    ->namespace('onethirtyone\GoogleCalendar\controllers')
+    ->group(function () {
+        Route::get('oauth2callback', 'CalendarOauthController@callback')
+            ->name('calendar.oauth.callback');
+    });
 
