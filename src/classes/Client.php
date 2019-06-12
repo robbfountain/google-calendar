@@ -22,7 +22,7 @@ class Client
         $this->client->setIncludeGrantedScopes(true);
         $this->client->setApprovalPrompt('force');
         $this->client->addScope(Google_Service_Calendar::CALENDAR);
-        $this->client->setRedirectUri(URL::to('/') . 'calendar/oauth2callback');
+        $this->client->setRedirectUri(URL::to('/') . '/calendar/oauth2callback');
 
     }
 
