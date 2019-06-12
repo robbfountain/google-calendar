@@ -14,8 +14,12 @@ class AddGoogleCalendarFieldsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('calendar_oauth_code')->nullable();
-            $table->string('calendar_oauth_scope')->nullable();
+                $table->text('access_token');
+                $table->text('refresh_token');
+                $table->string('scope');
+                $table->string('token_type');
+                $table->dateTime('created');
+                $table->integer('expires_in');
         });
     }
 
@@ -26,8 +30,15 @@ class AddGoogleCalendarFieldsToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['calendar_oauth_code','calendar_oauth_scope']);
-        });
+     Schema::table('users',function(Blueprint $table) {
+         $table->dropColumn([
+             'access_token',
+             'refresh_token',
+             'scope',
+             'token_type',
+             'created',
+             'expires_in',
+         ]);
+     });
     }
 }
