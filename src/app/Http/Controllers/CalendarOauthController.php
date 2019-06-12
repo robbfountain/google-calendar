@@ -14,8 +14,8 @@ class CalendarOauthController
             return redirect()
                 ->to(config('google-calendar.redirect_route'))
                 ->with(['message' => 'Token already exists']);
-
         }
+
         if ($request->has('error')) {
             throw new \Exception('Invalid Google Authentication Attempt');
         }
