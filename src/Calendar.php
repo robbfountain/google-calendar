@@ -16,6 +16,11 @@ class Calendar
      */
     protected $client;
 
+
+    protected $accessToken;
+
+
+
     public function __construct()
     {
         $this->client = new Google_Client();
@@ -31,5 +36,13 @@ class Calendar
     public function authUrl()
     {
         return $this->client->createAuthUrl();
+    }
+
+
+    public function getAccessTokenFromAuthCode($code)
+    {
+        $this->accessToken =  $this->client->fetchAccessTokenWithAuthCode($code);
+
+        dd($this->accessToken);
     }
 }
