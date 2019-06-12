@@ -12,7 +12,7 @@ class CalendarOauthController
     {
         if($request->has('code'))
         {
-
+            $calendar->getAccessTokenFromAuthCode();
         }
 
     }
