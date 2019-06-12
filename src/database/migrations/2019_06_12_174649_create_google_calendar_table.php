@@ -19,7 +19,7 @@ class CreateGoogleCalendarTable extends Migration
             $table->text('refresh_token');
             $table->string('scope');
             $table->string('token_type');
-            $table->date('created');
+            $table->timestamp('created');
             $table->integer('expires_in');
             $table->timestamps();
         });
