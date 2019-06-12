@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class Create_Google_Calendar_Table extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('google_calendar', function (Blueprint $table) {
+            $table->increments();
+            $table->text('access_token');
+            $table->text('refresh_token');
+            $table->string('scope');
+            $table->string('token_type');
+            $table->dateTime('created');
+            $table->integer('expires_in');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('google_calendar');
+    }
+}
