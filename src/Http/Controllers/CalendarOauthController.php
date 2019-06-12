@@ -12,8 +12,11 @@ class CalendarOauthController
     {
         if($request->has('code'))
         {
-            $calendar->getAccessTokenFromAuthCode($request->code);
+            $credentials = $calendar->getAccessTokenFromAuthCode($request->code);
+            auth()->user()->updateGoogleCredentials($credentials);
         }
+
+        return 'updated';
 
     }
 
