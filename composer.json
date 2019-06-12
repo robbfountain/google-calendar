@@ -1,0 +1,26 @@
+{
+    "name": "onethirtyone/google-calendar",
+    "description": "Oauth Integration For Google Calendar",
+    "require": {
+        "google/apiclient": "^2.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Robb Fountain",
+            "email": "robb@131studios.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "onethirtyone\\GoogleCalendar\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "onethirtyone\\GoogleCalendar\\GoogleCalendarServiceProvider"
+            ]
+        }
+    }
+}
