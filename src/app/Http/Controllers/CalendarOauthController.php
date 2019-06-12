@@ -1,6 +1,6 @@
 <?php
 
-namespace onethirtyone\GoogleCalendar\Controllers;
+namespace onethirtyone\GoogleCalendar\app\Http\Controllers;
 
 use Illuminate\Http\Request;
 use onethirtyone\GoogleCalendar\Calendar;
