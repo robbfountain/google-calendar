@@ -3,7 +3,6 @@
 namespace onethirtyone\GoogleCalendar\app\Http\Controllers;
 
 use Illuminate\Http\Request;
-use onethirtyone\GoogleCalendar\classes\Calendar;
 use onethirtyone\GoogleCalendar\Client;
 
 class CalendarOauthController

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace onethirtyone\GoogleCalendar\classes;
+namespace onethirtyone\GoogleCalendar;
 
 
 use Google_Client;
@@ -12,6 +12,8 @@ use onethirtyone\GoogleCalendar\app\GoogleClient;
 class Client
 {
     protected $client;
+
+    protected $accessToken;
 
     public function __construct()
     {
