@@ -25,7 +25,7 @@ class Client
         $this->client->setIncludeGrantedScopes(config('google-calendar.include_granted_scopes'));
         $this->client->setApprovalPrompt(config('google-calendar.approval_prompt', 'force'));
         $this->client->addScope(config('google-calendar.scope'));
-        $this->client->setRedirectUri(URL::to('/') . config('google-calendar.redirect_uri'));
+        $this->client->setRedirectUri(URL::to('/') . '/google/client/oauth2callback');
     }
 
     public function authUrl()

@@ -3,7 +3,7 @@
 
 Route::group([
     'namespace' => 'onethirtyone\GoogleCalendar\app\Http\Controllers',
-    'prefix' => 'calendar',
+    'prefix' => '/google/client',
     'middleware' => 'web',
 ], function () {
     Route::get('oauth2callback', 'CalendarOauthController@callback')

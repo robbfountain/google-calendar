@@ -8,8 +8,6 @@ return [
 
     'name' => 'Calendar integration',
 
-    'redirect_uri' => '/google/client/oauth2callback',
-
     'access_type' => 'offline',
 
     'approval_prompt' => 'force',
