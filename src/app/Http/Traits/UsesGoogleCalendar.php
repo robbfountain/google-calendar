@@ -1,7 +1,7 @@
 <?php
 
 
-namespace onethirtyone\GoogleCalendar\Http\Traits;
+namespace onethirtyone\GoogleCalendar\app\Http\Traits;
 
 trait UsesGoogleCalendar
 {
