@@ -11,7 +11,9 @@ class CalendarOauthController
     public function callback(Request $request, Client $client)
     {
         if ($client->hasExistingToken()) {
-            throw new \Exception('Token already exists');
+            return redirect()
+                ->to(config('google-calendar.redirect_route'))
+                ->with(['message' => 'Token already exists']);
 
         }
         if ($request->has('error')) {
