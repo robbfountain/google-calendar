@@ -5,7 +5,6 @@ namespace onethirtyone\GoogleCalendar;
 
 
 use Google_Client;
-use Google_Service_Calendar;
 use Illuminate\Support\Facades\URL;
 use onethirtyone\GoogleCalendar\app\GoogleClient;
 
@@ -15,17 +14,18 @@ class Client
 
     protected $accessToken;
 
+    protected $storedToken = null;
+
     public function __construct()
     {
         $this->client = new Google_Client();
-        $this->client->setApplicationName('Calendar integration');
+        $this->client->setApplicationName(config('google-calendar.name'));
         $this->client->setAuthConfig(config('google-calendar.credentials_path'));
-        $this->client->setAccessType("offline");
-        $this->client->setIncludeGrantedScopes(true);
-        $this->client->setApprovalPrompt('force');
-        $this->client->addScope(Google_Service_Calendar::CALENDAR);
-        $this->client->setRedirectUri(URL::to('/') . '/calendar/oauth2callback');
-
+        $this->client->setAccessType(config('google-calendar.access_type'));
+        $this->client->setIncludeGrantedScopes(config('google-calendar.include_granted_scopes'));
+        $this->client->setApprovalPrompt(config('google-calendar.approval_prompt', 'force'));
+        $this->client->addScope(config('google-calendar.scope'));
+        $this->client->setRedirectUri(URL::to('/') . config('google-calendar.redirect_uri'));
     }
 
     public function authUrl()
@@ -33,15 +33,26 @@ class Client
         return $this->client->createAuthUrl();
     }
 
-    public function setAccessTokenFromAuthCode($code)
-    {
-        $this->accessToken =  $this->client->fetchAccessTokenWithAuthCode($code);
-    }
-
     public function createClientFromAuthCode($code)
     {
         $this->setAccessTokenFromAuthCode($code);
 
         return GoogleClient::create($this->accessToken);
+    }
+
+    public function setAccessTokenFromAuthCode($code)
+    {
+        $this->accessToken = $this->client->fetchAccessTokenWithAuthCode($code);
+    }
+
+    public function setAccessToken($token = null)
+    {
+        if ($token) {
+            $this->client->setAccessToken($token);
+        } else if ($this->storedToken) {
+            $this->client->setAccessToken($this->storedToken);
+        }
+
+        return $this;
     }
 }

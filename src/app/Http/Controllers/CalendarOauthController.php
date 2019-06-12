@@ -10,11 +10,17 @@ class CalendarOauthController
 
     public function callback(Request $request, Client $client)
     {
-        if ($request->has('code')) {
-            $client->createClientFromAuthCode($request->code);
+        if ($request->has('error')) {
+            throw new \Exception('Invalid Google Authentication Attempt');
+
         }
 
-        return 'updated';
+        if ($request->has('code')) {
+            $client->createClientFromAuthCode($request->code);
+            return redirect()->to(config('google-calendar.redirect_route'));
+        }
+
+        throw new \Exception('Invalid Attempt');
 
     }
 
