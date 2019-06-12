@@ -55,4 +55,9 @@ class Client
 
         return $this;
     }
+
+    public function hasExistingToken()
+    {
+        return GoogleClient::where('id','>','0')->exists();
+    }
 }

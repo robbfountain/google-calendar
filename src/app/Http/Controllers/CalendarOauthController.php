@@ -10,9 +10,12 @@ class CalendarOauthController
 
     public function callback(Request $request, Client $client)
     {
+        if ($client->hasExistingToken()) {
+            throw new \Exception('Token already exists');
+
+        }
         if ($request->has('error')) {
             throw new \Exception('Invalid Google Authentication Attempt');
-
         }
 
         if ($request->has('code')) {
