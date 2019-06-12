@@ -6,10 +6,8 @@ namespace onethirtyone\GoogleCalendar;
 
 use Google_Client;
 use Google_Service_Calendar;
-use Illuminate\Support\Facades\URL;
-use onethirtyone\GoogleCalendar\classes\Client;
 
-class Calendar
+class Client
 {
     /**
      * @var Client
@@ -18,7 +16,6 @@ class Calendar
 
 
     protected $accessToken;
-
 
 
     public function __construct()
