@@ -3,16 +3,16 @@
 namespace onethirtyone\GoogleCalendar\app\Http\Controllers;
 
 use Illuminate\Http\Request;
+use onethirtyone\GoogleCalendar\classes\Calendar;
 use onethirtyone\GoogleCalendar\Client;
-use onethirtyone\GoogleCalendar\app\GoogleCalendar;
 
 class CalendarOauthController
 {
 
-    public function callback(Request $request, Client $calendar)
+    public function callback(Request $request, Client $client)
     {
         if ($request->has('code')) {
-            GoogleCalendar::create($calendar->getAccessTokenFromAuthCode($request->code));
+            $client->createClientFromAuthCode($request->code);
         }
 
         return 'updated';

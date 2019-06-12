@@ -7,6 +7,7 @@ namespace onethirtyone\GoogleCalendar\classes;
 use Google_Client;
 use Google_Service_Calendar;
 use Illuminate\Support\Facades\URL;
+use onethirtyone\GoogleCalendar\app\GoogleClient;
 
 class Client
 {
@@ -23,5 +24,22 @@ class Client
         $this->client->addScope(Google_Service_Calendar::CALENDAR);
         $this->client->setRedirectUri(URL::to('/') . '/oauth2callback');
 
+    }
+
+    public function authUrl()
+    {
+        return $this->client->createAuthUrl();
+    }
+
+    public function setAccessTokenFromAuthCode($code)
+    {
+        $this->accessToken =  $this->client->fetchAccessTokenWithAuthCode($code);
+    }
+
+    public function createClientFromAuthCode($code)
+    {
+        $this->setAccessTokenFromAuthCode($code);
+
+        return GoogleClient::create($this->accessToken);
     }
 }

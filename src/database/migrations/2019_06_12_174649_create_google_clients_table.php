@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGoogleCalendarTable extends Migration
+class CreateGoogleClientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGoogleCalendarTable extends Migration
      */
     public function up()
     {
-        Schema::create('google_calendar', function (Blueprint $table) {
+        Schema::create('google_clients', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('access_token');
             $table->text('refresh_token');
@@ -32,6 +32,6 @@ class CreateGoogleCalendarTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('google_calendar');
+        Schema::dropIfExists('google_clients');
     }
 }
