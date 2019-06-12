@@ -42,5 +42,7 @@ class Calendar
     public function getAccessTokenFromAuthCode($code)
     {
         $this->accessToken =  $this->client->fetchAccessTokenWithAuthCode($code);
+
+        return $this->accessToken;
     }
 }
