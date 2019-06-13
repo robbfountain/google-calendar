@@ -15,12 +15,7 @@ class CreateGoogleClientsTable extends Migration
     {
         Schema::create('google_clients', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('access_token');
-            $table->text('refresh_token');
-            $table->string('scope');
-            $table->string('token_type');
-            $table->string('created');
-            $table->integer('expires_in');
+            $table->json('credentials');
             $table->timestamps();
         });
     }

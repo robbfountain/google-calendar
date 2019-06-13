@@ -37,14 +37,11 @@ class Client
     {
         $this->setAccessTokenFromAuthCode($code);
 
-        return GoogleClient::create($this->accessToken);
+        return GoogleClient::create([
+            'credentials' => $this->client->fetchAccessTokenWithAuthCode($code),
+        ]);
     }
-
-    private function setAccessTokenFromAuthCode($code)
-    {
-        $this->accessToken = $this->client->fetchAccessTokenWithAuthCode($code);
-    }
-
+    
     public function getAccessToken()
     {
         if ($this->hasExistingToken()) {
