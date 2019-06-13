@@ -25,6 +25,33 @@ class Client
         $this->client->setApprovalPrompt(config('google-calendar.approval_prompt', 'force'));
         $this->client->addScope(config('google-calendar.scope'));
         $this->client->setRedirectUri(URL::to('/') . '/google/client/oauth2callback');
+
+        $this->refreshTokenIfNeeded();
+    }
+
+    public function refreshTokenIfNeeded()
+    {
+        if($this->hasExistingToken()) {
+            $token = GoogleClient::first();
+            $this->client->setAccessToken($token->credentials);
+
+            if($this->client->isAccessTokenExpired()) {
+                if($this->client->getRefreshToken()) {
+                    $this->client->fetchAccessTokenWithRefreshToken($this->client->getRefreshToken());
+                    $this->updateClientWithNewToken();
+                }
+            }
+        }
+    }
+
+    public function getExistingToken()
+    {
+        return GoogleClient::first()->credentials;
+    }
+
+    public function hasExistingToken()
+    {
+        return GoogleClient::latest()->exists();
     }
 
     public function authUrl()
@@ -39,15 +66,22 @@ class Client
         ]);
     }
 
+    public function token()
+    {
+        $this->getAccessToken();
+
+        return $this->client;
+    }
+
     public function getAccessToken()
     {
-        if ($this->hasExistingToken()) {
+        if($this->hasExistingToken()) {
 
             $token = GoogleClient::first();
             $this->client->setAccessToken($token->credentials);
 
-            if ($this->client->isAccessTokenExpired()) {
-                if ($this->client->getRefreshToken()) {
+            if($this->client->isAccessTokenExpired()) {
+                if($this->client->getRefreshToken()) {
                     $this->client->fetchAccessTokenWithRefreshToken($this->client->getRefreshToken());
                     $this->updateClientWithNewToken();
                 }
@@ -57,36 +91,26 @@ class Client
         return $this->client->getAccessToken();
     }
 
-    public function updateClientWithNewToken()
-    {
-        $client = GoogleClient::first();
-
-        $client->update([
-            'credentials' => $this->client->getAccessToken()
-        ]);
-    }
-
-    public function token()
-    {
-        $this->getAccessToken();
-
-        return $this->client;
-    }
-
     public function setAccessToken($token = null)
     {
-        if ($token) {
+        if($token) {
             $this->client->setAccessToken($token);
-        } else if ($this->hasExistingToken()) {
-            $this->client->setAccessToken($this->storedToken);
+        } else {
+            if($this->hasExistingToken()) {
+                $this->client->setAccessToken($this->storedToken);
+            }
         }
 
         return $this;
     }
 
-    public function hasExistingToken()
+    public function updateClientWithNewToken()
     {
-        return GoogleClient::latest()->exists();
+        $client = GoogleClient::first();
+
+        $client->update([
+            'credentials' => $this->client->getAccessToken(),
+        ]);
     }
 
     public function fetch()
