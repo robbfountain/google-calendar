@@ -40,10 +40,29 @@ class Client
         return GoogleClient::create($this->accessToken);
     }
 
-    public function setAccessTokenFromAuthCode($code)
+    private function setAccessTokenFromAuthCode($code)
     {
         $this->accessToken = $this->client->fetchAccessTokenWithAuthCode($code);
     }
+
+    public function getAccessToken()
+    {
+        if ($this->hasExistingToken()) {
+            $token = GoogleClient::first();
+            $this->client->setAccessToken($token->access_token);
+
+            // If there is no previous token or it's expired.
+            if ($this->client->isAccessTokenExpired()) {
+                // Refresh the token if possible, else fetch a new one.
+                if ($this->client->getRefreshToken()) {
+                    $this->client->fetchAccessTokenWithRefreshToken($this->client->getRefreshToken());
+                }
+            }
+        }
+
+        return $this->client->getAccessToken();
+    }
+
 
     public function setAccessToken($token = null)
     {
@@ -56,7 +75,8 @@ class Client
         return $this;
     }
 
-    public function hasExistingToken()
+    public
+    function hasExistingToken()
     {
         return GoogleClient::latest()->exists();
     }
