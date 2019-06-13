@@ -58,6 +58,14 @@ class Client
         return $this->client->getAccessToken();
     }
 
+    public function fetch()
+    {
+        $this->getAccessToken();
+
+        return $this->client;
+    }
+
+
 
     public function setAccessToken($token = null)
     {
