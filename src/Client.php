@@ -3,7 +3,6 @@
 
 namespace onethirtyone\GoogleCalendar;
 
-
 use Google_Client;
 use Illuminate\Support\Facades\URL;
 use onethirtyone\GoogleCalendar\app\GoogleClient;
@@ -43,14 +42,14 @@ class Client
     public function getAccessToken()
     {
         if ($this->hasExistingToken()) {
+
             $token = GoogleClient::first();
             $this->client->setAccessToken($token->credentials);
 
-            // If there is no previous token or it's expired.
             if ($this->client->isAccessTokenExpired()) {
-                // Refresh the token if possible, else fetch a new one.
                 if ($this->client->getRefreshToken()) {
                     $this->client->fetchAccessTokenWithRefreshToken($this->client->getRefreshToken());
+                    $this->updateClientWithNewToken();
                 }
             }
         }
@@ -58,14 +57,21 @@ class Client
         return $this->client->getAccessToken();
     }
 
-    public function fetch()
+    public function updateClientWithNewToken()
+    {
+        $client = GoogleClient::first();
+
+        $client->update([
+            'credentials' => $this->client->getAccessToken()
+        ]);
+    }
+
+    public function token()
     {
         $this->getAccessToken();
 
         return $this->client;
     }
-
-
 
     public function setAccessToken($token = null)
     {

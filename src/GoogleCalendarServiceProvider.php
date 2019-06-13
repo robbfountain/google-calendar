@@ -3,10 +3,10 @@
 namespace onethirtyone\GoogleCalendar;
 
 use Illuminate\Support\ServiceProvider;
+use onethirtyone\GoogleCalendar\classes\Calendar;
 
 class GoogleCalendarServiceProvider extends ServiceProvider
 {
-
     public function boot()
     {
         $this->publishes([
@@ -25,6 +25,10 @@ class GoogleCalendarServiceProvider extends ServiceProvider
 
         $this->app->bind('Client', function ($app) {
             return new Client();
+        });
+
+        $this->app->bind('Calendar', function ($app) {
+            return new Calendar();
         });
 
     }

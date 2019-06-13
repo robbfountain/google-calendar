@@ -22,7 +22,8 @@
         "onethirtyone\\GoogleCalendar\\GoogleCalendarServiceProvider"
       ],
       "aliases": {
-        "Client": "onethirtyone\\GoogleCalendar\\Facade"
+        "Client": "onethirtyone\\GoogleCalendar\\Facade",
+        "Calendar": "onethirtyone\\GoogleCalendar\\CalendarFacade"
       }
     }
   }
