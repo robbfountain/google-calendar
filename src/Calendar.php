@@ -3,6 +3,7 @@
 namespace onethirtyone\GoogleCalendar;
 
 use Google_Service_Calendar;
+use Client;
 
 class Calendar
 {
