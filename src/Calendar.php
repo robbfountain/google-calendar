@@ -30,4 +30,10 @@ class Calendar
 
         return $this;
     }
+
+    public function listEvents($options = [])
+    {
+        $results = $this->calendar->events->listEvents($this->calendarId, array_merge($this->optParams, $options));
+        return $results->getItems();
+    }
 }
