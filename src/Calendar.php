@@ -23,7 +23,6 @@ class Calendar
     {
         $this->client = $client;
         $this->calendar =  new Google_Service_Calendar(Client::fetch());
-
     }
 
     public function calendar($id)
