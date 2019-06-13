@@ -58,6 +58,6 @@ class Client
 
     public function hasExistingToken()
     {
-        return GoogleClient::first()->exists();
+        return GoogleClient::latest()->exists();
     }
 }
