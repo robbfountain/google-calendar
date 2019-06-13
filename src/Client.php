@@ -49,7 +49,7 @@ class Client
     {
         if ($token) {
             $this->client->setAccessToken($token);
-        } else if ($this->storedToken) {
+        } else if ($this->hasExistingToken()) {
             $this->client->setAccessToken($this->storedToken);
         }
 
@@ -58,6 +58,6 @@ class Client
 
     public function hasExistingToken()
     {
-        return GoogleClient::where('id','>','0')->exists();
+        return GoogleClient::first()->exists();
     }
 }
