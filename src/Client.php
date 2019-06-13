@@ -44,7 +44,7 @@ class Client
     {
         if ($this->hasExistingToken()) {
             $token = GoogleClient::first();
-            $this->client->setAccessToken($token->access_token);
+            $this->client->setAccessToken($token->credentials);
 
             // If there is no previous token or it's expired.
             if ($this->client->isAccessTokenExpired()) {
@@ -70,8 +70,7 @@ class Client
         return $this;
     }
 
-    public
-    function hasExistingToken()
+    public function hasExistingToken()
     {
         return GoogleClient::latest()->exists();
     }
