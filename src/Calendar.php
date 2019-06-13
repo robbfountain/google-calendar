@@ -3,6 +3,7 @@
 namespace onethirtyone\GoogleCalendar;
 
 use Google_Service_Calendar;
+use Google_Service_Calendar_Event;
 
 class Calendar
 {
@@ -10,6 +11,7 @@ class Calendar
     protected $calendar;
     protected $calendarId = 'primary';
     protected $optParams = [
+        'maxResults' => 10,
         'orderBy'      => 'startTime',
         'singleEvents' => true,
     ];
@@ -36,5 +38,15 @@ class Calendar
     {
         $results = $this->calendar->events->listEvents($this->calendarId, array_merge($this->optParams, $options));
         return $results->getItems();
+    }
+
+    public function createEvent($details, $calendarId = null)
+    {
+        $calendarId = $calendarId ?? $this->calendarId;
+        $event = new Google_Service_Calendar_Event($details);
+
+        $event = $this->calendar->events->insert($calendarId, $event);
+        return 'Event created: ' .  $event->htmlLink;
+
     }
 }
