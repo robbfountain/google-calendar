@@ -2,6 +2,8 @@
 
 namespace onethirtyone\GoogleCalendar;
 
+use Google_Service_Calendar;
+
 class Calendar
 {
     protected $client;
