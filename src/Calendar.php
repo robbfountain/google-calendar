@@ -3,7 +3,6 @@
 namespace onethirtyone\GoogleCalendar;
 
 use Google_Service_Calendar;
-use Client;
 
 class Calendar
 {
@@ -23,7 +22,7 @@ class Calendar
     public function __construct(Client $client)
     {
         $this->client = $client;
-        $this->calendar =  new Google_Service_Calendar(Client::fetch());
+        $this->calendar =  new Google_Service_Calendar($this->client->fetch());
     }
 
     public function calendar($id)

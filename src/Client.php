@@ -88,4 +88,9 @@ class Client
     {
         return GoogleClient::latest()->exists();
     }
+
+    public function fetch()
+    {
+        return $this->client;
+    }
 }
