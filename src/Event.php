@@ -107,7 +107,7 @@ class Event
         $method = $method ?? 'insertEvent';
 
         // get an instance of the google calendar
-        $googleCalendar = $this->getGoogleCalendarInstance($this->calendarId);
+        $googleCalendar = static::getGoogleCalendarInstance($this->calendarId);
 
         // set the attendees
         $this->googleEvent->setAttendees($this->attendees);
@@ -140,7 +140,7 @@ class Event
      *
      * @return Calendar
      */
-    public function getGoogleCalendarInstance($calendarId)
+    public static function getGoogleCalendarInstance($calendarId)
     {
         $calendarId = $calendarId ?? 'primary';
 
@@ -153,6 +153,23 @@ class Event
     public function get()
     {
         return $this->googleEvent;
+    }
+
+    /**
+     * @param Carbon|null $start
+     * @param Carbon|null $end
+     * @param array       $parameters
+     * @param string|null $calendarId
+     */
+    public static function list(Carbon $start = null, Carbon $end = null, array $parameters = [], string $calendarId = null )
+    {
+        $googleCalendar = static::getGoogleCalendarInstance($calendarId);
+
+        $calendarEvents = $googleCalendar->listEvents($start, $end, $parameters);
+
+        return collect($calendarEvents)->map(function (Google_Service_Calendar_Event $event) use ($calendarId) {
+            return static::createFromGoogleCalendarEvent($event, $calendarId);
+        });
     }
 
 }

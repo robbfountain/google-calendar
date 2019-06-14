@@ -2,8 +2,13 @@
 
 namespace onethirtyone\GoogleCalendar;
 
+use Carbon\Carbon;
 use Google_Service_Calendar;
 
+/**
+ * Class Calendar
+ * @package onethirtyone\GoogleCalendar
+ */
 class Calendar
 {
     /**
@@ -28,6 +33,12 @@ class Calendar
         $this->calendarId = $calendarId;
     }
 
+    /**
+     * @param       $event
+     * @param array $optParams
+     *
+     * @return \Google_Service_Calendar_Event
+     */
     public function insertEvent($event, $optParams = [])
     {
         if ($event instanceof Event) {
@@ -37,8 +48,38 @@ class Calendar
         return $this->googleCalendar->events->insert($this->calendarId, $event, $optParams);
     }
 
+    /**
+     * @return string
+     */
     public function getCalendarId()
     {
         return $this->calendarId;
+    }
+
+    public function listEvents($start, $end, $parameters)
+    {
+        $defaultParameters = [
+            'singleEvents' => true,
+            'orderBy' => 'startTime',
+        ];
+
+        if(is_null($start))
+        {
+            $start = Carbon::now()->startOfDay();
+        }
+
+        $defaultParameters['timeMin'] = $start->format(\DateTime::RFC3339);
+
+
+        if(is_null($end))
+        {
+            $end = Carbon::now()->endOfYear();
+        }
+
+        $defaultParameters['timeMax'] = $end->format(\DateTime::RFC3339);
+
+        $defaultParameters = array_merge($defaultParameters, $parameters);
+
+        $this->googleCalendar->events->listEvents($this->calendarId, $defaultParameters)->getItems();
     }
 }

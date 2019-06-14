@@ -6,6 +6,7 @@ return [
      */
     'credentials_path' => storage_path('client_secret.json'),
 
+
     'name' => 'Calendar integration',
 
     /**

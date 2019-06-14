@@ -8,14 +8,31 @@ use Google_Service_Calendar;
 use Illuminate\Support\Facades\URL;
 use onethirtyone\GoogleCalendar\app\GoogleClient;
 
+/**
+ * Class Client
+ * @package onethirtyone\GoogleCalendar
+ */
 class Client
 {
+    /**
+     * @var Google_Client
+     */
     public $client;
 
+    /**
+     * @var
+     */
     protected $accessToken;
 
+    /**
+     * @var null
+     */
     protected $storedToken = null;
 
+    /**
+     * Client constructor.
+     * @throws \Google_Exception
+     */
     public function __construct()
     {
         $this->client = new Google_Client;
@@ -30,6 +47,9 @@ class Client
         $this->refreshTokenIfNeeded();
     }
 
+    /**
+     *
+     */
     public function refreshTokenIfNeeded()
     {
         if($this->hasExistingToken()) {
@@ -44,21 +64,35 @@ class Client
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function getExistingToken()
     {
         return GoogleClient::first()->credentials;
     }
 
+    /**
+     * @return mixed
+     */
     public function hasExistingToken()
     {
         return GoogleClient::latest()->exists();
     }
 
+    /**
+     * @return string
+     */
     public function authUrl()
     {
         return $this->client->createAuthUrl();
     }
 
+    /**
+     * @param $code
+     *
+     * @return mixed
+     */
     public function createClientFromAuthCode($code)
     {
         return GoogleClient::create([
@@ -66,6 +100,9 @@ class Client
         ]);
     }
 
+    /**
+     *
+     */
     public function updateClientWithNewToken()
     {
         $client = GoogleClient::first();
