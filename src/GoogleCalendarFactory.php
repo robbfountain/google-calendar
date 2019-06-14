@@ -3,8 +3,6 @@
 
 namespace onethirtyone\GoogleCalendar;
 
-
-use Google_Client;
 use Google_Service_Calendar;
 
 class GoogleCalendarFactory
@@ -26,5 +24,4 @@ class GoogleCalendarFactory
 
         return $googleClient->client;
     }
-
 }
