@@ -4,7 +4,7 @@
   "require": {
     "php": "^7.0",
     "google/apiclient": "^2.2",
-    "nestbot/carbon": "^1.21 || ^2.0"
+    "nesbot/carbon": "^1.21 || ^2.0"
   },
   "license": "MIT",
   "authors": [

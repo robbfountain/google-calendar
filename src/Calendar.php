@@ -48,6 +48,11 @@ class Calendar
         return $this->googleCalendar->events->insert($this->calendarId, $event, $optParams);
     }
 
+    /**
+     * @param $event
+     *
+     * @return \Google_Service_Calendar_Event
+     */
     public function updateEvent($event)
     {
         if ($event instanceof Event) {
@@ -57,6 +62,11 @@ class Calendar
         return $this->googleCalendar->events->update($this->calendarId, $event->id, $event);
     }
 
+    /**
+     * @param $eventId
+     *
+     * @return \Google_Service_Calendar_Event
+     */
     public function findEvent($eventId)
     {
         return $this->googleCalendar->events->get($this->calendarId, $eventId);
@@ -101,6 +111,9 @@ class Calendar
         return $this->googleCalendar->events->listEvents($this->calendarId, $defaultParameters)->getItems();
     }
 
+    /**
+     * @param $eventId
+     */
     public function deleteEvent($eventId)
     {
         $this->googleCalendar->events->delete($this->calendarId, $eventId);
