@@ -54,6 +54,15 @@ class Event
         array_set($this->googleEvent, $name, $value);
     }
 
+    public function __get($name)
+    {
+        $name = $this->getName($name);
+
+        $value = array_get($this->googleEvent, $name);
+
+        return $value;
+    }
+
     /**
      * @param $name
      *
@@ -160,6 +169,8 @@ class Event
      * @param Carbon|null $end
      * @param array       $parameters
      * @param string|null $calendarId
+     *
+     * @return \Illuminate\Support\Collection
      */
     public static function list(Carbon $start = null, Carbon $end = null, array $parameters = [], string $calendarId = null )
     {
