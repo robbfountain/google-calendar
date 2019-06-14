@@ -39,6 +39,78 @@ class Event
     }
 
     /**
+     * @param Carbon|null $start
+     * @param Carbon|null $end
+     * @param array       $parameters
+     * @param string|null $calendarId
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public static function list(Carbon $start = null,
+        Carbon $end = null,
+        array $parameters = [],
+        string $calendarId = null)
+    {
+        $googleCalendar = static::getGoogleCalendarInstance($calendarId);
+
+        $calendarEvents = $googleCalendar->listEvents($start, $end, $parameters);
+
+        return collect($calendarEvents)->map(function (Google_Service_Calendar_Event $event) use ($calendarId) {
+            return static::createFromGoogleCalendarEvent($event, $calendarId);
+        });
+    }
+
+    /**
+     * @param $calendarId
+     *
+     * @return Calendar
+     */
+    protected static function getGoogleCalendarInstance($calendarId)
+    {
+        $calendarId = $calendarId ?? 'primary';
+
+        return GoogleCalendarFactory::getInstanceWithCalendarId($calendarId);
+    }
+
+    /**
+     * @param Google_Service_Calendar_Event $googleEvent
+     * @param                               $calendarId
+     *
+     * @return Event
+     */
+    public static function createFromGoogleCalendarEvent(Google_Service_Calendar_Event $googleEvent, $calendarId)
+    {
+        $event = new static;
+
+        $event->googleEvent = $googleEvent;
+        $event->calendarId = $calendarId;
+
+        return $event;
+    }
+
+    public function delete(string $eventId = null)
+    {
+        $this->getGoogleCalendarInstance($this->calendarId)->deleteEvent($eventId ?? $this->id);
+    }
+
+    public function __get($name)
+    {
+        $name = $this->getName($name);
+
+        $value = array_get($this->googleEvent, $name);
+
+        if (in_array($name, ['start.date', 'end.date']) && $value) {
+            $value = Carbon::createFromFormat('Y-m-d', $value)->startOfDay();
+        }
+
+        if (in_array($name, ['start.dateTime', 'end.dateTime']) && $value) {
+            $value = Carbon::createFromFormat(DateTime::RFC3339, $value);
+        }
+
+        return $value;
+    }
+
+    /**
      * @param $name
      * @param $value
      */
@@ -52,15 +124,6 @@ class Event
         }
 
         array_set($this->googleEvent, $name, $value);
-    }
-
-    public function __get($name)
-    {
-        $name = $this->getName($name);
-
-        $value = array_get($this->googleEvent, $name);
-
-        return $value;
     }
 
     /**
@@ -112,75 +175,25 @@ class Event
      */
     public function save(string $method = null, $optParams = [])
     {
-        // determine what we're doing
-        $method = $method ?? 'insertEvent';
+        $method = $method ?? ($this->exists() ? 'updateEvent' : 'insertEvent');
 
-        // get an instance of the google calendar
-        $googleCalendar = static::getGoogleCalendarInstance($this->calendarId);
+        $googleCalendar = $this->getGoogleCalendarInstance($this->calendarId);
 
-        // set the attendees
         $this->googleEvent->setAttendees($this->attendees);
 
-        //create the event
         $googleEvent = $googleCalendar->$method($this, $optParams);
 
-        // return the event
         return static::createFromGoogleCalendarEvent($googleEvent, $googleCalendar->getCalendarId());
     }
 
-    /**
-     * @param Google_Service_Calendar_Event $googleEvent
-     * @param                               $calendarId
-     *
-     * @return Event
-     */
-    public static function createFromGoogleCalendarEvent(Google_Service_Calendar_Event $googleEvent, $calendarId)
+    public function exists()
     {
-        $event = new static;
-
-        $event->googleEvent = $googleEvent;
-        $event->calendarId = $calendarId;
-
-        return $event;
+        return $this->id != '';
     }
 
-    /**
-     * @param $calendarId
-     *
-     * @return Calendar
-     */
-    public static function getGoogleCalendarInstance($calendarId)
+    public function addAttendee(array $attendees)
     {
-        $calendarId = $calendarId ?? 'primary';
-
-        return GoogleCalendarFactory::getInstanceWithCalendarId($calendarId);
-    }
-
-    /**
-     * @return Google_Service_Calendar_Event
-     */
-    public function get()
-    {
-        return $this->googleEvent;
-    }
-
-    /**
-     * @param Carbon|null $start
-     * @param Carbon|null $end
-     * @param array       $parameters
-     * @param string|null $calendarId
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public static function list(Carbon $start = null, Carbon $end = null, array $parameters = [], string $calendarId = null )
-    {
-        $googleCalendar = static::getGoogleCalendarInstance($calendarId);
-
-        $calendarEvents = $googleCalendar->listEvents($start, $end, $parameters);
-
-        return collect($calendarEvents)->map(function (Google_Service_Calendar_Event $event) use ($calendarId) {
-            return static::createFromGoogleCalendarEvent($event, $calendarId);
-        });
+        $this->attendees[] = $attendees;
     }
 
 }

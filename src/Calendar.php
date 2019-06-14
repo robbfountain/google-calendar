@@ -48,6 +48,15 @@ class Calendar
         return $this->googleCalendar->events->insert($this->calendarId, $event, $optParams);
     }
 
+    public function updateEvent($event)
+    {
+        if ($event instanceof Event) {
+            $event = $event->googleEvent;
+        }
+
+        return $this->googleCalendar->events->update($this->calendarId, $event->id, $event);
+    }
+
     /**
      * @return string
      */
@@ -56,6 +65,13 @@ class Calendar
         return $this->calendarId;
     }
 
+    /**
+     * @param $start
+     * @param $end
+     * @param $parameters
+     *
+     * @return \Google_Service_Calendar_Event
+     */
     public function listEvents($start, $end, $parameters)
     {
         $defaultParameters = [
@@ -63,16 +79,13 @@ class Calendar
             'orderBy' => 'startTime',
         ];
 
-        if(is_null($start))
-        {
+        if (is_null($start)) {
             $start = Carbon::now()->startOfDay();
         }
 
         $defaultParameters['timeMin'] = $start->format(\DateTime::RFC3339);
 
-
-        if(is_null($end))
-        {
+        if (is_null($end)) {
             $end = Carbon::now()->endOfYear();
         }
 
@@ -81,5 +94,10 @@ class Calendar
         $defaultParameters = array_merge($defaultParameters, $parameters);
 
         return $this->googleCalendar->events->listEvents($this->calendarId, $defaultParameters)->getItems();
+    }
+
+    public function deleteEvent($eventId)
+    {
+        $this->googleCalendar->events->delete($this->calendarId, $eventId);
     }
 }
