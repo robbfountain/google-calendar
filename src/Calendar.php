@@ -33,7 +33,8 @@ class Calendar
         if ($event instanceof Event) {
             $event = $event->googleEvent;
         }
-        $this->googleCalendar->events->insert($this->calendarId, $event, $optParams);
+
+        return $this->googleCalendar->events->insert($this->calendarId, $event, $optParams);
     }
 
     public function getCalendarId()

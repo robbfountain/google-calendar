@@ -7,6 +7,10 @@ use Carbon\Carbon;
 use Google_Service_Calendar_Event;
 use Google_Service_Calendar_EventDateTime;
 
+/**
+ * Class Event
+ * @package onethirtyone\GoogleCalendar
+ */
 class Event
 {
     /**
@@ -25,12 +29,19 @@ class Event
     public $attendees;
 
 
+    /**
+     * Event constructor.
+     */
     public function __construct()
     {
         $this->googleEvent = new Google_Service_Calendar_Event;
         $this->attendees = [];
     }
 
+    /**
+     * @param $name
+     * @param $value
+     */
     public function __set($name, $value)
     {
         $name = $this->getName($name);
@@ -43,6 +54,11 @@ class Event
         array_set($this->googleEvent, $name, $value);
     }
 
+    /**
+     * @param $name
+     *
+     * @return mixed
+     */
     protected function getName($name)
     {
         return [
@@ -55,6 +71,10 @@ class Event
             ][$name] ?? $name;
     }
 
+    /**
+     * @param        $name
+     * @param Carbon $date
+     */
     public function formatForDateTime($name, Carbon $date)
     {
         $eventDateTime = new Google_Service_Calendar_EventDateTime;
@@ -75,6 +95,12 @@ class Event
         }
     }
 
+    /**
+     * @param string|null $method
+     * @param array       $optParams
+     *
+     * @return Event
+     */
     public function save(string $method = null, $optParams = [])
     {
         // determine what we're doing
@@ -93,6 +119,12 @@ class Event
         return static::createFromGoogleCalendarEvent($googleEvent, $googleCalendar->getCalendarId());
     }
 
+    /**
+     * @param Google_Service_Calendar_Event $googleEvent
+     * @param                               $calendarId
+     *
+     * @return Event
+     */
     public static function createFromGoogleCalendarEvent(Google_Service_Calendar_Event $googleEvent, $calendarId)
     {
         $event = new static;
@@ -103,6 +135,11 @@ class Event
         return $event;
     }
 
+    /**
+     * @param $calendarId
+     *
+     * @return Calendar
+     */
     public function getGoogleCalendarInstance($calendarId)
     {
         $calendarId = $calendarId ?? 'primary';
@@ -110,6 +147,9 @@ class Event
         return GoogleCalendarFactory::getInstanceWithCalendarId($calendarId);
     }
 
+    /**
+     * @return Google_Service_Calendar_Event
+     */
     public function get()
     {
         return $this->googleEvent;
