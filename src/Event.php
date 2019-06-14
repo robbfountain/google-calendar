@@ -3,6 +3,7 @@
 namespace onethirtyone\GoogleCalendar;
 
 use DateTime;
+use Google_Service_Calendar;
 use Google_Service_Calendar_Event;
 use Google_Service_Calendar_EventDateTime;
 use Carbon\Carbon;
