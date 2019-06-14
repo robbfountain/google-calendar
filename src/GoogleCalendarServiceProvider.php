@@ -17,15 +17,13 @@ class GoogleCalendarServiceProvider extends ServiceProvider
             __DIR__ . '/database/migrations' => database_path('migrations'),
         ], 'migrations');
 
-        $this->mergeConfigFrom(
-            __DIR__ . '/config/google-calendar.php', 'google-calendar'
-        );
-
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
     }
 
     public function register()
     {
-
+        $this->mergeConfigFrom(
+            __DIR__ . '/config/google-calendar.php', 'google-calendar'
+        );
     }
 }

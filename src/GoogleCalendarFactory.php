@@ -5,9 +5,18 @@ namespace onethirtyone\GoogleCalendar;
 
 use Google_Service_Calendar;
 
+/**
+ * Class GoogleCalendarFactory
+ * @package onethirtyone\GoogleCalendar
+ */
 class GoogleCalendarFactory
 {
 
+    /**
+     * @param $calendarId
+     *
+     * @return Calendar
+     */
     public static function getInstanceWithCalendarId($calendarId)
     {
         $client = static::getAuthenticatedClientInstance();
@@ -18,6 +27,10 @@ class GoogleCalendarFactory
 
     }
 
+    /**
+     * @return \Google_Client
+     * @throws \Google_Exception
+     */
     public static function getAuthenticatedClientInstance()
     {
         $googleClient = new Client;

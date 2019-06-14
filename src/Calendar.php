@@ -57,6 +57,11 @@ class Calendar
         return $this->googleCalendar->events->update($this->calendarId, $event->id, $event);
     }
 
+    public function findEvent($eventId)
+    {
+        return $this->googleCalendar->events->get($this->calendarId, $eventId);
+    }
+
     /**
      * @return string
      */

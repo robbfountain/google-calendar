@@ -232,4 +232,12 @@ class Event
         $this->attendees[] = $attendees;
     }
 
+    public static function find($eventId, string $calendarId = mnull)
+    {
+        $googleCalendar = static::getGoogleCalendarInstance($calendarId);
+
+        $googleEvent = $googleCalendar->findEvent($eventId);
+
+        return static::createFromGoogleCalendarEvent($googleEvent, $calendarId);
+    }
 }
