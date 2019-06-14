@@ -80,6 +80,6 @@ class Calendar
 
         $defaultParameters = array_merge($defaultParameters, $parameters);
 
-        $this->googleCalendar->events->listEvents($this->calendarId, $defaultParameters)->getItems();
+        return $this->googleCalendar->events->listEvents($this->calendarId, $defaultParameters)->getItems();
     }
 }
