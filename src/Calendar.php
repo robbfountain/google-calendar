@@ -3,50 +3,41 @@
 namespace onethirtyone\GoogleCalendar;
 
 use Google_Service_Calendar;
-use Google_Service_Calendar_Event;
 
 class Calendar
 {
-    protected $client;
-    protected $calendar;
-    protected $calendarId = 'primary';
-    protected $optParams = [
-        'maxResults' => 10,
-        'orderBy'      => 'startTime',
-        'singleEvents' => true,
-    ];
+    /**
+     * @var Google_Service_Calendar
+     */
+    protected $googleCalendar;
+
+    /**
+     * @var string
+     */
+    protected $calendarId;
 
     /**
      * Calendar constructor.
      *
-     * @param Client $client
+     * @param Google_Service_Calendar $googleCalendar
+     * @param string                  $calendarId
      */
-    public function __construct(Client $client)
+    public function __construct(Google_Service_Calendar $googleCalendar, string $calendarId)
     {
-        $this->client = $client;
-        $this->calendar =  new Google_Service_Calendar($this->client->fetch());
+        $this->googleCalendar = $googleCalendar;
+        $this->calendarId = $calendarId;
     }
 
-    public function calendar($id)
+    public function insertEvent($event, $optParams = [])
     {
-        $this->calendarId = $id;
-
-        return $this;
+        if ($event instanceof Event) {
+            $event = $event->googleEvent;
+        }
+        $this->googleCalendar->events->insert($this->calendarId, $event, $optParams);
     }
 
-    public function listEvents($options = [])
+    public function getCalendarId()
     {
-        $results = $this->calendar->events->listEvents($this->calendarId, array_merge($this->optParams, $options));
-        return $results->getItems();
-    }
-
-    public function createEvent($details, $calendarId = null)
-    {
-        $calendarId = $calendarId ?? $this->calendarId;
-        $event = new Google_Service_Calendar_Event($details);
-
-        $event = $this->calendar->events->insert($calendarId, $event);
-        return 'Event created: ' .  $event->htmlLink;
-
+        return $this->calendarId;
     }
 }

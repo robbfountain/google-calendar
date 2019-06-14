@@ -22,15 +22,6 @@ class GoogleCalendarServiceProvider extends ServiceProvider
         );
 
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
-
-        $this->app->bind('Client', function ($app) {
-            return new Client();
-        });
-
-        $this->app->bind('Calendar', function ($app) {
-            return new Calendar();
-        });
-
     }
 
     public function register()
