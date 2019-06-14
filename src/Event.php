@@ -88,11 +88,19 @@ class Event
         return $event;
     }
 
+    /**
+     * @param string|null $eventId
+     */
     public function delete(string $eventId = null)
     {
         $this->getGoogleCalendarInstance($this->calendarId)->deleteEvent($eventId ?? $this->id);
     }
 
+    /**
+     * @param $name
+     *
+     * @return bool|DateTime|mixed
+     */
     public function __get($name)
     {
         $name = $this->getName($name);
@@ -124,6 +132,28 @@ class Event
         }
 
         array_set($this->googleEvent, $name, $value);
+    }
+
+    /**
+     * @param array       $attributes
+     * @param string|null $calendarId
+     * @param array       $optParams
+     *
+     * @return Event
+     */
+    public static function create(array $attributes, string $calendarId = null, $optParams = [])
+    {
+        $event = new static;
+
+        $event->calendarId = static::getGoogleCalendarInstance($calendarId)->getCalendarId();
+
+        foreach($attributes as $name => $value)
+        {
+            $event->$name = $value;
+        }
+
+        return $event->save('insertEvent',$optParams);
+
     }
 
     /**
@@ -186,11 +216,17 @@ class Event
         return static::createFromGoogleCalendarEvent($googleEvent, $googleCalendar->getCalendarId());
     }
 
+    /**
+     * @return bool
+     */
     public function exists()
     {
         return $this->id != '';
     }
 
+    /**
+     * @param array $attendees
+     */
     public function addAttendee(array $attendees)
     {
         $this->attendees[] = $attendees;
