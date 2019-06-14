@@ -8,14 +8,9 @@ return [
 
     'name' => 'Calendar integration',
 
-    'access_type' => 'offline',
-
-    'approval_prompt' => 'force',
-
-    'scope' => Google_Service_Calendar::CALENDAR,
-
-    'include_granted_scopes' => true,
-
+    /**
+     * The path where users will be redirected to after they authorize google.
+     */
     'redirect_route' => '/home',
 ];
 
