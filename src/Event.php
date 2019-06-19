@@ -52,12 +52,20 @@ class Event
         string $calendarId = null)
     {
         $googleCalendar = static::getGoogleCalendarInstance($calendarId);
+        $calendarEventsCollection = collect();
+        $pageToken = null;
 
-        $calendarEvents = $googleCalendar->listEvents($start, $end, $parameters);
+        do {
+            $calendarEvents = $googleCalendar->listEvents($start, $end, array_merge($parameters,['pageToken' => $pageToken]);
+            $calendarEventsCollection->pull($calendarEvents))
+            $pageToken = $calendarEvents->getNextPageToken() ?? null;
+        } while($calendarEvents->getNextPageToken() != null)
 
         // TODO: Store Sync Token
 
-        return collect($calendarEvents->getItems())->map(function (Google_Service_Calendar_Event $event) use ($calendarId) {
+        return collect($calendarEvents->getItems())->map(function (Google_Service_Calendar_Event $event) use (
+            $calendarId
+        ) {
             return static::createFromGoogleCalendarEvent($event, $calendarId);
         });
     }
@@ -88,6 +96,63 @@ class Event
         $event->calendarId = $calendarId;
 
         return $event;
+    }
+
+    /**
+     * @param array $attributes
+     * @param string|null $calendarId
+     * @param array $optParams
+     *
+     * @return Event
+     */
+    public static function create(array $attributes, string $calendarId = null, $optParams = [])
+    {
+        $event = new static;
+
+        $event->calendarId = static::getGoogleCalendarInstance($calendarId)->getCalendarId();
+
+        foreach ($attributes as $name => $value) {
+            $event->$name = $value;
+        }
+
+        return $event->save('insertEvent', $optParams);
+
+    }
+
+    /**
+     * @param string|null $method
+     * @param array       $optParams
+     *
+     * @return Event
+     */
+    public function save(string $method = null, $optParams = [])
+    {
+        $method = $method ?? ($this->exists() ? 'updateEvent' : 'insertEvent');
+
+        $googleCalendar = $this->getGoogleCalendarInstance($this->calendarId);
+
+        $this->googleEvent->setAttendees($this->attendees);
+
+        $googleEvent = $googleCalendar->$method($this, $optParams);
+
+        return static::createFromGoogleCalendarEvent($googleEvent, $googleCalendar->getCalendarId());
+    }
+
+    /**
+     * @return bool
+     */
+    public function exists()
+    {
+        return $this->id != '';
+    }
+
+    public static function find($eventId, string $calendarId = mnull)
+    {
+        $googleCalendar = static::getGoogleCalendarInstance($calendarId);
+
+        $googleEvent = $googleCalendar->findEvent($eventId);
+
+        return static::createFromGoogleCalendarEvent($googleEvent, $calendarId);
     }
 
     /**
@@ -137,28 +202,6 @@ class Event
     }
 
     /**
-     * @param array       $attributes
-     * @param string|null $calendarId
-     * @param array       $optParams
-     *
-     * @return Event
-     */
-    public static function create(array $attributes, string $calendarId = null, $optParams = [])
-    {
-        $event = new static;
-
-        $event->calendarId = static::getGoogleCalendarInstance($calendarId)->getCalendarId();
-
-        foreach($attributes as $name => $value)
-        {
-            $event->$name = $value;
-        }
-
-        return $event->save('insertEvent',$optParams);
-
-    }
-
-    /**
      * @param $name
      *
      * @return mixed
@@ -200,46 +243,10 @@ class Event
     }
 
     /**
-     * @param string|null $method
-     * @param array       $optParams
-     *
-     * @return Event
-     */
-    public function save(string $method = null, $optParams = [])
-    {
-        $method = $method ?? ($this->exists() ? 'updateEvent' : 'insertEvent');
-
-        $googleCalendar = $this->getGoogleCalendarInstance($this->calendarId);
-
-        $this->googleEvent->setAttendees($this->attendees);
-
-        $googleEvent = $googleCalendar->$method($this, $optParams);
-
-        return static::createFromGoogleCalendarEvent($googleEvent, $googleCalendar->getCalendarId());
-    }
-
-    /**
-     * @return bool
-     */
-    public function exists()
-    {
-        return $this->id != '';
-    }
-
-    /**
      * @param array $attendees
      */
     public function addAttendee(array $attendees)
     {
         $this->attendees[] = $attendees;
-    }
-
-    public static function find($eventId, string $calendarId = mnull)
-    {
-        $googleCalendar = static::getGoogleCalendarInstance($calendarId);
-
-        $googleEvent = $googleCalendar->findEvent($eventId);
-
-        return static::createFromGoogleCalendarEvent($googleEvent, $calendarId);
     }
 }
