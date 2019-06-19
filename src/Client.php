@@ -52,16 +52,24 @@ class Client
      */
     public function refreshTokenIfNeeded()
     {
-        if($this->hasExistingToken()) {
+        if ($this->hasExistingToken()) {
             $this->client->setAccessToken($this->getExistingToken());
 
-            if($this->client->isAccessTokenExpired()) {
-                if($this->client->getRefreshToken()) {
+            if ($this->client->isAccessTokenExpired()) {
+                if ($this->client->getRefreshToken()) {
                     $this->client->fetchAccessTokenWithRefreshToken($this->client->getRefreshToken());
                     $this->updateClientWithNewToken();
                 }
             }
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function hasExistingToken()
+    {
+        return GoogleClient::latest()->exists();
     }
 
     /**
@@ -73,11 +81,15 @@ class Client
     }
 
     /**
-     * @return mixed
+     *
      */
-    public function hasExistingToken()
+    public function updateClientWithNewToken()
     {
-        return GoogleClient::latest()->exists();
+        $client = GoogleClient::first();
+
+        $client->update([
+            'credentials' => $this->client->getAccessToken(),
+        ]);
     }
 
     /**
@@ -100,15 +112,16 @@ class Client
         ]);
     }
 
-    /**
-     *
-     */
-    public function updateClientWithNewToken()
+    public static function updateClientWithChannel(\Google_Service_Calendar_Channel $channel)
     {
         $client = GoogleClient::first();
 
         $client->update([
-            'credentials' => $this->client->getAccessToken(),
+            'channel_unique_id' => $channel->getId(),
+            'channel_resource_id' => $channel->getResourceId(),
+            'channel_expires_at' => $channel->getExpiration(),
+            'channel_resource_url' => $channel->getResourceUri(),
         ]);
     }
+
 }

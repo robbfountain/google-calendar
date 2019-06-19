@@ -43,7 +43,8 @@ class Channel
     {
         $googleCalendar = GoogleCalendarFactory::getInstanceWithCalendarId('primary');
         $response = $googleCalendar->watch($this->channel);
+        Client::updateClientWithChannel($response);
 
-        dd($response);
+        return $this;
     }
 }
