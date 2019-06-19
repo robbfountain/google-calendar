@@ -67,6 +67,11 @@ class Calendar
         return $this->googleCalendar->events->watch($this->calendarId, $channel);
     }
 
+    public function stop($channel)
+    {
+        return $this->googleCalendar->channels->stop($channel);
+    }
+
     /**
      * @param $eventId
      *

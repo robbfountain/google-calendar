@@ -5,6 +5,7 @@ namespace onethirtyone\GoogleCalendar;
 
 
 use Illuminate\Support\Str;
+use onethirtyone\GoogleCalendar\app\GoogleClient;
 
 /**
  * Class Channel
@@ -45,6 +46,15 @@ class Channel
         return $this->channel;
     }
 
+    public function getCurrent()
+    {
+        $client = GoogleClient::firstOrFail();
+        $this->channel->setResourceId($client->channel_resource_id);
+        $this->channel->setId($client->channel_unique_id);
+
+        return $this;
+    }
+
     /**
      * @return \Google_Client
      */
@@ -78,4 +88,14 @@ class Channel
 
         return $this;
     }
+
+    public function stop()
+    {
+        $googleCalendar = GoogleCalendarFactory::getInstanceWithCalendarId('primary');
+        $response = $googleCalendar->stop($this->channel);
+
+        return $this;
+    }
+
+
 }

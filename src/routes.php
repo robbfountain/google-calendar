@@ -19,6 +19,9 @@ Route::group([
     Route::get('register', 'CalendarWebhookController@register')
         ->name('calendar.webhook.register');
 
+    route::get('stop','CalendarWebhookController@unRegister')
+        ->name('calendar.webhook.unregister');
+
     Route::get('unregister', 'CalendarOauthController@unRegister')
         ->name('calendar.oauth.unregister');
 });
