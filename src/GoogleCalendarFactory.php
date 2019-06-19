@@ -16,6 +16,7 @@ class GoogleCalendarFactory
      * @param $calendarId
      *
      * @return Calendar
+     * @throws \Google_Exception
      */
     public static function getInstanceWithCalendarId($calendarId)
     {

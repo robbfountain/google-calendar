@@ -17,8 +17,12 @@ class Channel
     public function __construct()
     {
         $this->client = GoogleCalendarFactory::getAuthenticatedClientInstance();
-        $this->googleCalendar = GoogleCalendarFactory::getInstanceWithCalendarId('primary');
         $this->channel = new \Google_Service_Calendar_Channel($this->client);
+    }
+
+    public function getChannel()
+    {
+        return $this->channel;
     }
 
     public function getClient()
@@ -34,10 +38,4 @@ class Channel
             $this->channel->$method($value);
         }
     }
-
-    public function save()
-    {
-        return $this->googleCalendar->events->watch('primary', $this->channel);
-    }
-
 }

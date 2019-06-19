@@ -62,6 +62,11 @@ class Calendar
         return $this->googleCalendar->events->update($this->calendarId, $event->id, $event);
     }
 
+    public function watch($channel)
+    {
+        return $this->googleCalendar->events->watch($this->calendarId, $channel);
+    }
+
     /**
      * @param $eventId
      *
