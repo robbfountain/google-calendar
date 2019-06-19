@@ -13,6 +13,9 @@ Route::group([
     Route::get('oauth2callback', 'CalendarOauthController@callback')
         ->name('calendar.oauth.callback');
 
+    Route::get('unregister', 'CalendarOauthController@unRegister')
+        ->name('calendar.oauth.unregister');
+
     Route::post('webhook', 'CalendarWebhookController@handle')
         ->name('calendar.webhook');
 
@@ -22,7 +25,6 @@ Route::group([
     route::get('stop','CalendarWebhookController@unRegister')
         ->name('calendar.webhook.unregister');
 
-    Route::get('unregister', 'CalendarOauthController@unRegister')
-        ->name('calendar.oauth.unregister');
+
 });
 

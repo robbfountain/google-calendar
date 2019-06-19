@@ -18,7 +18,7 @@
                 <div class="bg-gray-100 border-b p-3">
                     <h2>Calendar Integration</h2>
                 </div>
-                <div class="text-center py-8">
+                <div class="text-center p-3">
                     @if(session()->has('message'))
                         <div class="my-6 rounded border bg-green-200 text-green-600 p-2 text-sm">
                             {{session()->get('message')}}

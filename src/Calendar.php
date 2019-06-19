@@ -4,6 +4,7 @@ namespace onethirtyone\GoogleCalendar;
 
 use Carbon\Carbon;
 use Google_Service_Calendar;
+use onethirtyone\GoogleCalendar\app\GoogleClient;
 
 /**
  * Class Calendar
@@ -70,6 +71,11 @@ class Calendar
     public function stop($channel)
     {
         return $this->googleCalendar->channels->stop($channel);
+    }
+
+    public static function hasExistingWebhooks()
+    {
+        return GoogleClient::where('channel_unique_id','!=',null)->exists();
     }
 
     /**
