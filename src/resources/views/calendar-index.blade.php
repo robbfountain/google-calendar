@@ -14,12 +14,15 @@
     </head>
     <body>
         <div id="app">
-            <div class="container mx-auto w-1/3 mt-12 border rounded p-4">
-
-                <a href="{{route('calendar.webhook.register')}}" class="rounded px-4 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white">
-                    Enable Webhooks
-                </a>
-
+            <div class="container mx-auto w-1/3 mt-12 border rounded">
+                <div class="bg-gray-100 border-b p-3">
+                    <h2>Calendar Integration</h2>
+                </div>
+                <div class="text-center py-3">
+                    <a href="{{route('calendar.webhook.register')}}" class="rounded px-4 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white">
+                        Enable Webhooks
+                    </a>
+                </div>
             </div>
         </div>
     </body>
