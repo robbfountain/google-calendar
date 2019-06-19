@@ -124,7 +124,9 @@ class Calendar
 
         $defaultParameters = array_merge($defaultParameters, $parameters);
 
-        return $this->googleCalendar->events->listEvents($this->calendarId, $defaultParameters);
+        $response =  $this->googleCalendar->events->listEvents($this->calendarId, $defaultParameters);
+
+        dd($response->getNextSyncToken());
     }
 
     /**
