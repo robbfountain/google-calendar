@@ -3,8 +3,8 @@
 namespace onethirtyone\GoogleCalendar\app\Http\Controllers;
 
 use Illuminate\Http\Request;
-use onethirtyone\GoogleCalendar\app\GoogleClient;
 use onethirtyone\GoogleCalendar\Client;
+use onethirtyone\GoogleCalendar\app\GoogleClient;
 
 class CalendarOauthController
 {
@@ -18,27 +18,32 @@ class CalendarOauthController
         }
 
         if ($request->has('error')) {
-            throw new \Exception('Invalid Google Authentication Attempt');
+            return redirect()
+                ->to(route('calendar.index'))
+                ->withErrors('Invalid Google Authentication Attempt');
         }
 
         if ($request->has('code')) {
             $client->createClientFromAuthCode($request->code);
-            return redirect()->to(route('calendar.index'));
+            return redirect()->to(route('calendar.index'))->with(['message' => 'Calendar linked successfully']);
         }
 
-        throw new \Exception('Invalid Attempt');
-
+        return redirect()
+            ->to(route('calendar.index'))
+            ->withErrors('Invalid Google Authentication Attempt');
     }
 
     public function index()
     {
-        return view('GoogleCalendar::calendar-index')->with(['integrated' => GoogleClient::count()]);
+        return view('GoogleCalendar::calendar-index')
+            ->with(['integrated' => GoogleClient::count()]);
     }
 
     public function unRegister()
     {
         GoogleClient::truncate();
 
-        return redirect()->to(route('calendar.index'));
+        return redirect()->to(route('calendar.index'))
+            ->with(['message' => 'Calendar integration removed']);
     }
 }

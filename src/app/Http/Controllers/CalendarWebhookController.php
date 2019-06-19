@@ -17,7 +17,7 @@ class CalendarWebhookController
         $channel = new Channel();
         $channel->id = Str::uuid();
         $channel->type = 'web_hook';
-        $channel->address = 'https://dev.131studios.com/google/client/webhook';
+        $channel->address = 'https://dev.131studios.com/google/calendar/webhook';
         $channel->save();
 
         return redirect()->to(route('calendar.index'));
