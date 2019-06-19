@@ -93,6 +93,12 @@ class Channel
     {
         $googleCalendar = GoogleCalendarFactory::getInstanceWithCalendarId('primary');
         $response = $googleCalendar->stop($this->channel);
+        GoogleClient::first()->update([
+            'channel_unique_id' => null,
+            'channel_resource_id' => null,
+            'channel_expires_at' => null,
+            'channel_resource_url' => null,
+        ]);
 
         return $this;
     }
