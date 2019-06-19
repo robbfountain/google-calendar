@@ -31,17 +31,17 @@ class Event
     /**
      * @var array
      */
-    protected $calendarEvents;
+    protected static $calendarEvents;
 
     /**
      * @var string
      */
-    protected $pageToken;
+    protected static $pageToken;
 
     /**
      * @var string
      */
-    protected $syncToken;
+    protected static $syncToken;
 
 
 
@@ -52,9 +52,9 @@ class Event
     {
         $this->googleEvent = new Google_Service_Calendar_Event;
         $this->attendees = [];
-        $this->calendarEvents = [];
-        $this->pageToken = null;
-        $this->syncToken = null;
+        self::$calendarEvents = [];
+        self::$pageToken = null;
+        self::$syncToken = null;
     }
 
     /**
