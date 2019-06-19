@@ -15,13 +15,13 @@
     <body>
         <div id="app">
             <div class="container mx-auto w-1/3 mt-12 border rounded">
-                @if(session()->has('messsage'))
+                @if(session()->has('message'))
                     <div>
                         {{session()->get('message')}}
                     </div>
-                @elseif(session()->has('error'))
+                @elseif($errors->any())
                     <div>
-                        {{session()->get('error')}}
+                        {{$errors->first()}}
                     </div>
                 @endif
                 <div class="bg-gray-100 border-b p-3">

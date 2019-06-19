@@ -20,17 +20,18 @@ class CalendarOauthController
         if ($request->has('error')) {
             return redirect()
                 ->to(route('calendar.index'))
-                ->withErrors('Invalid Google Authentication Attempt');
+                ->withErrors(['message','Invalid Google Authentication Attempt']);
         }
 
         if ($request->has('code')) {
             $client->createClientFromAuthCode($request->code);
-            return redirect()->to(route('calendar.index'))->with(['message' => 'Calendar linked successfully']);
+            return redirect()->to(route('calendar.index'))
+                ->with(['message' => 'Calendar linked successfully']);
         }
 
         return redirect()
             ->to(route('calendar.index'))
-            ->withErrors('Invalid Google Authentication Attempt');
+            ->withErrors(['message','Invalid Google Authentication Attempt']);
     }
 
     public function index()
