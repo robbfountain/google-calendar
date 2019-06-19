@@ -111,7 +111,7 @@ class Calendar
         ];
 
         if (is_null($start)) {
-            $start = Carbon::now()->startOfDay();
+       //     $start = Carbon::now()->startOfDay();
         }
 
         $defaultParameters['timeMin'] = $start->format(\DateTime::RFC3339);
