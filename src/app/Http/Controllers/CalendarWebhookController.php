@@ -28,6 +28,7 @@ class CalendarWebhookController
     {
         Log::info('Webhook Received ' . $request->header('x-goog-resource-state') . ' id ' . $request->header('x-goog-resource-id'));
         Log::info('uri ' . $request->header('x-goog-resource-uri'));
+        Log::info('channel ' . $request->header('x-goog-channel-id'));
 
         return response([],200);
     }
