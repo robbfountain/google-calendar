@@ -2,6 +2,7 @@
 
 namespace onethirtyone\GoogleCalendar\app\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use onethirtyone\GoogleCalendar\Channel;
@@ -25,7 +26,8 @@ class CalendarWebhookController
 
     public function handle(Request $request)
     {
-        //
+        Log::info('Webhook Received');
+        Log::info(json_encode($request->toArray()));
     }
 
 }
