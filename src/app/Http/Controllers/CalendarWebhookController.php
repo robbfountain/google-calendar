@@ -3,6 +3,7 @@
 namespace onethirtyone\GoogleCalendar\app\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use onethirtyone\GoogleCalendar\Channel;
 
 class CalendarWebhookController
