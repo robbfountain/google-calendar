@@ -17,7 +17,7 @@ class Channel
     public function __construct()
     {
         $this->client = GoogleCalendarFactory::getAuthenticatedClientInstance();
-        $this->googleCalendar = GoogleCalendarFactory::getAuthenticatedClientInstance();
+        $this->googleCalendar = GoogleCalendarFactory::getInstanceWithCalendarId('primary');
         $this->channel = new \Google_Service_Calendar_Channel($this->client);
     }
 
