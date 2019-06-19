@@ -62,8 +62,9 @@ class Event
         } while($calendarEvents->getNextPageToken() != null);
 
         // TODO: Store Sync Token
+        dd($calendarEventsCollection->count());
 
-        return $calendarEventsCollection->map(function (Google_Service_Calendar_Event $event) use (
+        return $calendarEventsCollection->map(function ( $event) use (
             $calendarId
         ) {
             return static::createFromGoogleCalendarEvent($event, $calendarId);
