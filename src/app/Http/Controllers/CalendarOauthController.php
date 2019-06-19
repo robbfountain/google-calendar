@@ -56,7 +56,10 @@ class CalendarOauthController
     public function index()
     {
         return view('GoogleCalendar::calendar-index')
-            ->with(['integrated' => GoogleClient::count()]);
+            ->with([
+                'integrated' => GoogleClient::count(),
+                'hasWebhooks' => GoogleClient::where('channel_unique_id', '!=', null)->exists(),
+            ]);
     }
 
     /**

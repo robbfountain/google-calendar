@@ -41,19 +41,21 @@
                             </a>
                         @endif
                     </div>
-                    <div class="py-4">
-                        <a href="{{route('calendar.webhook.register')}}"
-                           class="rounded px-4 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white">
-                            Enable Webhooks
-                        </a>
-                    </div>
-
-                    <div class="py-4">
-                        <a href="{{route('calendar.webhook.unregister')}}"
-                           class="rounded px-4 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white">
-                            Disable Webhooks
-                        </a>
-                    </div>
+                    @if(!$hasWebhooks)
+                        <div class="py-4">
+                            <a href="{{route('calendar.webhook.register')}}"
+                               class="rounded px-4 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white">
+                                Enable Webhooks
+                            </a>
+                        </div>
+                    @else
+                        <div class="py-4">
+                            <a href="{{route('calendar.webhook.unregister')}}"
+                               class="rounded px-4 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white">
+                                Disable Webhooks
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
