@@ -12,7 +12,7 @@ class CalendarOauthController
     {
         if ($client->hasExistingToken()) {
             return redirect()
-                ->to(config('google-calendar.redirect_route'))
+                ->to(route('calendar.index'))
                 ->with(['message' => 'Token already exists']);
         }
 
@@ -22,10 +22,15 @@ class CalendarOauthController
 
         if ($request->has('code')) {
             $client->createClientFromAuthCode($request->code);
-            return redirect()->to(config('google-calendar.redirect_route'));
+            return redirect()->to(route('calendar.index'));
         }
 
         throw new \Exception('Invalid Attempt');
 
+    }
+
+    public function index()
+    {
+        return view('GoogleCalendar::calendar-inddex');
     }
 }
