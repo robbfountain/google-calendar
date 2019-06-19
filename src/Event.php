@@ -62,7 +62,7 @@ class Event
         } while($pageToken != null);
 
         // TODO: Store Sync Token
-        dd($calendarEventsCollection->count());
+        dd($calendarEventsCollection);
 
         return $calendarEventsCollection->map(function ( $event) use (
             $calendarId
