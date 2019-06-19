@@ -3,7 +3,7 @@
 
 Route::group([
     'namespace' => 'onethirtyone\GoogleCalendar\app\Http\Controllers',
-    'prefix' => '/google/client',
+    'prefix' => '/google/calendar',
     'middleware' => 'web',
 ], function () {
 
