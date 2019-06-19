@@ -28,6 +28,8 @@ class CalendarWebhookController
     {
         Log::info('Webhook Received');
         Log::info(json_encode($request));
+
+        return response([],200);
     }
 
 }
