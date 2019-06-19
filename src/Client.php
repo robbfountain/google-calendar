@@ -119,4 +119,12 @@ class Client
         $client->update($attributes);
     }
 
+
+    public static function updateClientWithSyncToken(string $token)
+    {
+        $client = GoogleClient::first();
+
+        $client->update(['sync_token' => $token]);
+    }
+
 }
