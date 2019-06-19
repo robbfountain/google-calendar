@@ -15,6 +15,15 @@
     <body>
         <div id="app">
             <div class="container mx-auto w-1/3 mt-12 border rounded">
+                @if(session()->has('messsage'))
+                    <div>
+                        {{session()->get('message')}}
+                    </div>
+                @elseif(session()->has('error'))
+                    <div>
+                        {{session()->get('error')}}
+                    </div>
+                @endif
                 <div class="bg-gray-100 border-b p-3">
                     <h2>Calendar Integration</h2>
                 </div>
