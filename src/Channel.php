@@ -38,4 +38,12 @@ class Channel
             $this->channel->$method($value);
         }
     }
+
+    public function save()
+    {
+        $googleCalendar = GoogleCalendarFactory::getInstanceWithCalendarId('primary');
+        $response = $googleCalendar->watch($this->channel);
+
+        dd(json_decode($response));
+    }
 }

@@ -16,6 +16,10 @@ class CreateGoogleClientsTable extends Migration
         Schema::create('google_clients', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->json('credentials');
+            $table->string('channel_unique_id')->nullable();
+            $table->string('channel_resource_id')->nullable();
+            $table->string('channel_expires_at')->nullable();
+            $table->string('channel_resource_url')->nullable();
             $table->timestamps();
         });
     }

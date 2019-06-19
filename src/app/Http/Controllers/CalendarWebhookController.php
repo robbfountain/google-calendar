@@ -12,24 +12,13 @@ class CalendarWebhookController
 
     protected $channel;
 
-    public function __construct(Channel $channel)
-    {
-        $this->channel = $channel;
-    }
-
     public function register()
     {
-        $this->channel->id = Str::uuid();
-        $this->channel->type = 'web_hook';
-        $this->channel->address = 'https://dev.131studios.com/google/client/webhook';
-        $googleCalendar = GoogleCalendarFactory::getInstanceWithCalendarId('primary');
-        dd ($googleCalendar->watch($this->channel->getChannel()));
-//        $channel =  new Google_Service_Calendar_Channel($client);
-//        $channel->setId(Str::uuid());
-//        $channel->setType('web_hook');
-//        $channel->setAddress('https://staging.dapperhousebarbershop.com/google/client/webhook');
-//
-//        $watchEvent = $service->events->watch('primary', $channel);
+        $channel = new Channel();
+        $channel->id = Str::uuid();
+        $channel->type = 'web_hook';
+        $channel->address = 'https://dev.131studios.com/google/client/webhook';
+        $channel->save();
     }
 
     public function handle(Request $request)
