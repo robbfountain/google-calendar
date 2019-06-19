@@ -2,22 +2,25 @@
 
 namespace onethirtyone\GoogleCalendar\app\Http\Controllers;
 
-use Google_Service_Calendar_Channel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use onethirtyone\GoogleCalendar\Client;
+use onethirtyone\GoogleCalendar\Channel;
 
 class CalendarWebhookController
 {
 
-    public function register(Client $client)
+    public function register(Channel $channel)
     {
-        $channel =  new Google_Service_Calendar_Channel($client);
-        $channel->setId(Str::uuid());
-        $channel->setType('web_hook');
-        $channel->setAddress('https://staging.dapperhousebarbershop.com/google/client/webhook');
+        $channel->id = Str::uuid();
+        $channel->type = 'web_hook';
+        $channel->address = 'https://dev.131studios.com/google/client/webhook';
+        $channel->save();
 
-        $watchEvent = $service->events->watch('primary', $channel);
+//        $channel =  new Google_Service_Calendar_Channel($client);
+//        $channel->setId(Str::uuid());
+//        $channel->setType('web_hook');
+//        $channel->setAddress('https://staging.dapperhousebarbershop.com/google/client/webhook');
+//
+//        $watchEvent = $service->events->watch('primary', $channel);
     }
 
     public function handle(Request $request)
