@@ -23,7 +23,7 @@ class CalendarWebhookController
         $this->channel->type = 'web_hook';
         $this->channel->address = 'https://dev.131studios.com/google/client/webhook';
         $googleCalendar = GoogleCalendarFactory::getInstanceWithCalendarId('primary');
-        return $googleCalendar->watch($this->channel->getChannel());
+        dd $googleCalendar->watch($this->channel->getChannel()));
 //        $channel =  new Google_Service_Calendar_Channel($client);
 //        $channel->setId(Str::uuid());
 //        $channel->setType('web_hook');
