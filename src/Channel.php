@@ -12,6 +12,8 @@ class Channel
 
     protected $channel;
 
+    protected $googleCalendar;
+
     public function __construct()
     {
         $this->client = GoogleCalendarFactory::getAuthenticatedClientInstance();
