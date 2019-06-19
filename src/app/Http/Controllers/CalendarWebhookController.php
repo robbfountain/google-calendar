@@ -13,7 +13,7 @@ class CalendarWebhookController
         $channel->id = Str::uuid();
         $channel->type = 'web_hook';
         $channel->address = 'https://dev.131studios.com/google/client/webhook';
-        $channel->save();
+        return $channel->save();
 
 //        $channel =  new Google_Service_Calendar_Channel($client);
 //        $channel->setId(Str::uuid());
