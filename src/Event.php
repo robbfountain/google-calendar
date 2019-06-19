@@ -57,7 +57,7 @@ class Event
 
         do {
             $calendarEvents = $googleCalendar->listEvents($start, $end, array_merge($parameters,['pageToken' => $pageToken]));
-            $calendarEventsCollection->pull($calendarEvents->getItems()))
+            $calendarEventsCollection->push($calendarEvents->getItems());
             $pageToken = $calendarEvents->getNextPageToken() ?? null;
         } while($calendarEvents->getNextPageToken() != null);
 
