@@ -15,19 +15,19 @@
     <body>
         <div id="app">
             <div class="container mx-auto w-1/3 mt-12 border rounded">
-                @if(session()->has('message'))
-                    <div>
-                        {{session()->get('message')}}
-                    </div>
-                @elseif($errors->any())
-                    <div>
-                        {{$errors->first()}}
-                    </div>
-                @endif
                 <div class="bg-gray-100 border-b p-3">
                     <h2>Calendar Integration</h2>
                 </div>
                 <div class="text-center py-8">
+                    @if(session()->has('message'))
+                        <div class="my-6 rounded border bg-green-200 text-green-600 p-2 text-sm">
+                            {{session()->get('message')}}
+                        </div>
+                    @elseif($errors->any())
+                        <div class="my-6 rounded border bg-red-200 text-red-600 p-2 text-sm">
+                            {{$errors->first()}}
+                        </div>
+                    @endif
                     <div class="py-4">
                         @if($integrated)
                             <a href="{{route('calendar.oauth.unregister')}}"
