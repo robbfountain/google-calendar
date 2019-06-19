@@ -18,6 +18,8 @@ class GoogleCalendarServiceProvider extends ServiceProvider
         ], 'migrations');
 
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
+
+        $this->loadViewsFrom(__DIR__ . '/resources/views','GoogleCalendar');
     }
 
     public function register()
