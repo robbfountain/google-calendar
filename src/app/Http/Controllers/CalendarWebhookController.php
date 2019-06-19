@@ -27,7 +27,7 @@ class CalendarWebhookController
     public function handle(Request $request)
     {
         Log::info('Webhook Received');
-        Log::info(json_encode($request->toArray()));
+        Log::info(json_encode($request->headers()));
     }
 
 }
