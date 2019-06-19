@@ -31,6 +31,6 @@ class CalendarOauthController
 
     public function index()
     {
-        return view('GoogleCalendar::calendar-inddex');
+        return view('GoogleCalendar::calendar-index');
     }
 }
