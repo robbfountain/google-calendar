@@ -20,6 +20,6 @@ Route::group([
         ->name('calendar.webhook.register');
 
     Route::get('register', 'CalendarOauthController@unRegister')
-        ->name('calendar.webhook.register');
+        ->name('calendar.oauth.register');
 });
 

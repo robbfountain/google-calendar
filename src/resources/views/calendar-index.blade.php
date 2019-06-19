@@ -20,11 +20,11 @@
                 </div>
                 <div class="text-center py-8">
                     @if($integrated)
-                        <a href="{{route('calendar.webhook.unregister')}}" class="rounded px-4 py-3 text-lg bg-red-500 hover:bg-red-600 text-white">
+                        <a href="{{route('calendar.oauth.unregister')}}" class="rounded px-4 py-3 text-lg bg-red-500 hover:bg-red-600 text-white">
                             Unlink Calendar
                         </a>
                     @else
-                        <a href="{{route('calendar.webhook.register')}}" class="rounded px-4 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white">
+                        <a href="{{(new \onethirtyone\GoogleCalendar\Client)->authUrl()}}" class="rounded px-4 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white">
                            Link Calendar
                         </a>
                     @endif
