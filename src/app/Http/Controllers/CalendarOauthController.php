@@ -32,7 +32,7 @@ class CalendarOauthController
 
     public function index()
     {
-        return view('GoogleCalendar::calendar-index')->with(['integrated' => GoogleClient::first()->exists()]);
+        return view('GoogleCalendar::calendar-index')->with(['integrated' => GoogleClient::count()]);
     }
 
     public function unRegister()
