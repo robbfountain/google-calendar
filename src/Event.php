@@ -55,7 +55,9 @@ class Event
 
         $calendarEvents = $googleCalendar->listEvents($start, $end, $parameters);
 
-        return collect($calendarEvents)->map(function (Google_Service_Calendar_Event $event) use ($calendarId) {
+        // TODO: Store Sync Token
+
+        return collect($calendarEvents->getItems())->map(function (Google_Service_Calendar_Event $event) use ($calendarId) {
             return static::createFromGoogleCalendarEvent($event, $calendarId);
         });
     }

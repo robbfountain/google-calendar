@@ -101,12 +101,12 @@ class Calendar
      * @param $end
      * @param $parameters
      *
-     * @return \Google_Service_Calendar_Event
+     * @return \Google_Service_Calendar_Events
      */
     public function listEvents($start, $end, $parameters)
     {
         $defaultParameters = [
-            'singleEvents' => true,
+//            'singleEvents' => true,
 //            'orderBy' => 'startTime',
         ];
 
@@ -124,9 +124,7 @@ class Calendar
 
         $defaultParameters = array_merge($defaultParameters, $parameters);
 
-        $response =  $this->googleCalendar->events->listEvents($this->calendarId, $defaultParameters);
-
-        dd($response->getNextSyncToken());
+        return $this->googleCalendar->events->listEvents($this->calendarId, $defaultParameters);
     }
 
     /**
