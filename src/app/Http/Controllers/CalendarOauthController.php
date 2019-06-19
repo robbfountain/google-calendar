@@ -28,5 +28,4 @@ class CalendarOauthController
         throw new \Exception('Invalid Attempt');
 
     }
-
 }

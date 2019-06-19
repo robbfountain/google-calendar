@@ -48,7 +48,7 @@ class Client
     }
 
     /**
-     *
+     * Refresh the auth token if it's needed
      */
     public function refreshTokenIfNeeded()
     {
