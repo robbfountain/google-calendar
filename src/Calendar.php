@@ -114,13 +114,13 @@ class Calendar
        //     $start = Carbon::now()->startOfDay();
         }
 
-        $defaultParameters['timeMin'] = $start->format(\DateTime::RFC3339);
-
-        if (is_null($end)) {
-            $end = Carbon::now()->endOfYear();
-        }
-
-        $defaultParameters['timeMax'] = $end->format(\DateTime::RFC3339);
+//        $defaultParameters['timeMin'] = $start->format(\DateTime::RFC3339);
+//
+//        if (is_null($end)) {
+//            $end = Carbon::now()->endOfYear();
+//        }
+//
+//        $defaultParameters['timeMax'] = $end->format(\DateTime::RFC3339);
 
         $defaultParameters = array_merge($defaultParameters, $parameters);
 
