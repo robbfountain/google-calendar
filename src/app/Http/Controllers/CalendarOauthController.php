@@ -70,7 +70,7 @@ class CalendarOauthController
     public function unRegister()
     {
         if (Calendar::hasExistingWebhooks()) {
-            (new Channel())->getCurrent()->stop();
+            (new Channel())->getCurrentChannel()->stop();
         }
 
         GoogleClient::truncate();

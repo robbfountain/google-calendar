@@ -29,7 +29,7 @@ class CalendarWebhookController
     public function unRegister()
     {
         $channel = new Channel();
-        $channel->getCurrent()->stop();
+        $channel->getCurrentChannel()->stop();
 
         return redirect()->to(route('calendar.index'))->with(['message' => 'Webhooks Disabled for Calendar']);
 

@@ -112,16 +112,11 @@ class Client
         ]);
     }
 
-    public static function updateClientWithChannel(\Google_Service_Calendar_Channel $channel)
+    public static function updateClientWithChannel(array $attributes)
     {
         $client = GoogleClient::first();
 
-        $client->update([
-            'channel_unique_id' => $channel->getId(),
-            'channel_resource_id' => $channel->getResourceId(),
-            'channel_expires_at' => $channel->getExpiration(),
-            'channel_resource_url' => $channel->getResourceUri(),
-        ]);
+        $client->update($attributes);
     }
 
 }

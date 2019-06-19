@@ -46,11 +46,14 @@ class Channel
         return $this->channel;
     }
 
-    public function getCurrent()
+    /**
+     * @return $this
+     */
+    public function getCurrentChannel()
     {
         $client = GoogleClient::firstOrFail();
-        $this->channel->setResourceId($client->channel_resource_id);
-        $this->channel->setId($client->channel_unique_id);
+        $this->resourceId = $client->channel_resource_id;
+        $this->id = $client->channel_unique_id;
 
         return $this;
     }
@@ -83,17 +86,26 @@ class Channel
     public function save()
     {
         $googleCalendar = GoogleCalendarFactory::getInstanceWithCalendarId('primary');
-        $response = $googleCalendar->watch($this->channel);
-        Client::updateClientWithChannel($response);
+        $channel = $googleCalendar->watch($this->channel);
+        Client::updateClientWithChannel([
+            'channel_unique_id' => $channel->getId(),
+            'channel_resource_id' => $channel->getResourceId(),
+            'channel_expires_at' => $channel->getExpiration(),
+            'channel_resource_url' => $channel->getResourceUri(),
+        ]);
 
         return $this;
     }
 
+    /**
+     * @return $this
+     * @throws \Google_Exception
+     */
     public function stop()
     {
         $googleCalendar = GoogleCalendarFactory::getInstanceWithCalendarId('primary');
-        $response = $googleCalendar->stop($this->channel);
-        GoogleClient::first()->update([
+        $googleCalendar->stop($this->channel);
+        Client::updateClientWithChannel([
             'channel_unique_id' => null,
             'channel_resource_id' => null,
             'channel_expires_at' => null,
