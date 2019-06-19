@@ -3,6 +3,7 @@
 namespace onethirtyone\GoogleCalendar\app\Http\Controllers;
 
 use Illuminate\Http\Request;
+use onethirtyone\GoogleCalendar\app\GoogleClient;
 use onethirtyone\GoogleCalendar\Client;
 
 class CalendarOauthController
@@ -31,6 +32,13 @@ class CalendarOauthController
 
     public function index()
     {
-        return view('GoogleCalendar::calendar-index');
+        return view('GoogleCalendar::calendar-index')->with(['integrated' => GoogleClient::first()->exists()]);
+    }
+
+    public function unRegister()
+    {
+        GoogleClient::truncate();
+
+        return redirect()->to(route('calendar.index'));
     }
 }
