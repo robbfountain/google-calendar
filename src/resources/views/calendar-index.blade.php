@@ -19,19 +19,25 @@
                     <h2>Calendar Integration</h2>
                 </div>
                 <div class="text-center py-8">
-                    @if($integrated)
-                        <a href="{{route('calendar.oauth.unregister')}}" class="rounded px-4 py-3 text-lg bg-red-500 hover:bg-red-600 text-white">
-                            Unlink Calendar
+                    <div class="py-4">
+                        @if($integrated)
+                            <a href="{{route('calendar.oauth.unregister')}}"
+                               class="rounded px-4 py-3 text-lg bg-red-500 hover:bg-red-600 text-white">
+                                Unlink Calendar
+                            </a>
+                        @else
+                            <a href="{{(new \onethirtyone\GoogleCalendar\Client)->authUrl()}}"
+                               class="rounded px-4 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white">
+                                Link Calendar
+                            </a>
+                        @endif
+                    </div>
+                    <div class="py-4">
+                        <a href="{{route('calendar.webhook.register')}}"
+                           class="rounded px-4 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white">
+                            Enable Webhooks
                         </a>
-                    @else
-                        <a href="{{(new \onethirtyone\GoogleCalendar\Client)->authUrl()}}" class="rounded px-4 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white">
-                           Link Calendar
-                        </a>
-                    @endif
-
-                    <a href="{{route('calendar.webhook.register')}}" class="rounded px-4 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white">
-                        Enable Webhooks
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>
