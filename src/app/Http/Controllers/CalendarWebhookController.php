@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use onethirtyone\GoogleCalendar\Channel;
 use onethirtyone\GoogleCalendar\GoogleCalendarFactory;
+use Ramsey\Uuid\Uuid;
 
 class CalendarWebhookController
 {
@@ -16,7 +17,7 @@ class CalendarWebhookController
     public function register()
     {
         $channel = new Channel();
-        $channel->id = Str::uuid();
+        $channel->id = Uuid::uuid4();
         $channel->type = 'web_hook';
         $channel->address = 'https://dev.131studios.com/google/calendar/webhook';
         $channel->save();
