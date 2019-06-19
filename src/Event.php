@@ -6,6 +6,7 @@ use DateTime;
 use Carbon\Carbon;
 use Google_Service_Calendar_Event;
 use Google_Service_Calendar_EventDateTime;
+use Illuminate\Support\Arr;
 
 /**
  * Class Event
@@ -52,12 +53,12 @@ class Event
         string $calendarId = null)
     {
         $googleCalendar = static::getGoogleCalendarInstance($calendarId);
-        $calendarEventsCollection = collect();
+        $calendarEventsCollection = [];
         $pageToken = null;
 
         do {
             $calendarEvents = $googleCalendar->listEvents($start, $end, array_merge($parameters, static::getPageToken($pageToken)));
-            $calendarEventsCollection->merge($calendarEvents->getItems());
+            $calendarEventsCollection = array_merge($calendarEventsCollection, $calendarEvents->getItems())
             $pageToken = $calendarEvents->getNextPageToken();
         } while($pageToken != null);
 
