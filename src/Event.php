@@ -6,7 +6,6 @@ use DateTime;
 use Carbon\Carbon;
 use Google_Service_Calendar_Event;
 use Google_Service_Calendar_EventDateTime;
-use Illuminate\Support\Arr;
 
 /**
  * Class Event
@@ -29,6 +28,22 @@ class Event
      */
     public $attendees;
 
+    /**
+     * @var array
+     */
+    protected $calendarEvents;
+
+    /**
+     * @var string
+     */
+    protected $pageToken;
+
+    /**
+     * @var string
+     */
+    protected $syncToken;
+
+
 
     /**
      * Event constructor.
@@ -37,6 +52,9 @@ class Event
     {
         $this->googleEvent = new Google_Service_Calendar_Event;
         $this->attendees = [];
+        $this->calendarEvents = [];
+        $this->pageToken = null;
+        $this->syncToken = null;
     }
 
     /**
@@ -47,35 +65,23 @@ class Event
      *
      * @return \Illuminate\Support\Collection
      */
-    public static function list(Carbon $start = null,
-        Carbon $end = null,
-        array $parameters = [],
-        string $calendarId = null)
+    public static function list(Carbon $start = null, Carbon $end = null, array $parameters = [], string $calendarId = null)
     {
         $googleCalendar = static::getGoogleCalendarInstance($calendarId);
-        $calendarEventsCollection = [];
-        $pageToken = null;
 
         do {
-            $calendarEvents = $googleCalendar->listEvents($start, $end, array_merge($parameters, static::getPageToken($pageToken)));
-            $calendarEventsCollection = array_merge($calendarEventsCollection, $calendarEvents->getItems());
-            $pageToken = $calendarEvents->getNextPageToken();
-        } while($pageToken != null);
+            $calendarEvents = $googleCalendar->listEvents($start, $end, array_merge($parameters, static::getPageToken(self::$pageToken)));
+            self::$calendarEvents = array_merge(self::$calendarEvents, $calendarEvents->getItems());
+            self::$pageToken = $calendarEvents->getNextPageToken();
+        } while (self::$pageToken != null);
 
         // TODO: Store Sync Token
-        dd($calendarEventsCollection);
 
-        return $calendarEventsCollection->map(function ( $event) use (
-            $calendarId
-        ) {
+        return collect(self::$calendarEventsCollection)->map(function ($event) use ($calendarId) {
             return static::createFromGoogleCalendarEvent($event, $calendarId);
         });
     }
 
-    public static function getPageToken($token)
-    {
-        return $token ? ['pageToken' => $token] : [];
-    }
     /**
      * @param $calendarId
      *
@@ -86,6 +92,16 @@ class Event
         $calendarId = $calendarId ?? 'primary';
 
         return GoogleCalendarFactory::getInstanceWithCalendarId($calendarId);
+    }
+
+    /**
+     * @param $token
+     *
+     * @return array
+     */
+    public static function getPageToken($token)
+    {
+        return $token ? ['pageToken' => $token] : [];
     }
 
     /**
@@ -152,6 +168,12 @@ class Event
         return $this->id != '';
     }
 
+    /**
+     * @param        $eventId
+     * @param string $calendarId
+     *
+     * @return Event
+     */
     public static function find($eventId, string $calendarId = mnull)
     {
         $googleCalendar = static::getGoogleCalendarInstance($calendarId);
