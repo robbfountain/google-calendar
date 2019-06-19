@@ -56,10 +56,10 @@ class Event
         $pageToken = null;
 
         do {
-            $calendarEvents = $googleCalendar->listEvents($start, $end, array_merge($parameters,['pageToken' => $pageToken]));
+            $calendarEvents = $googleCalendar->listEvents($start, $end, array_merge($parameters, static::getPageToken()));
             $calendarEventsCollection->push($calendarEvents->getItems());
-            $pageToken = $calendarEvents->getNextPageToken() ?? null;
-        } while($calendarEvents->getNextPageToken() != null);
+            $pageToken = $calendarEvents->getNextPageToken();
+        } while($pageToken != null);
 
         // TODO: Store Sync Token
         dd($calendarEventsCollection->count());
@@ -71,6 +71,10 @@ class Event
         });
     }
 
+    public static function getPageToken($token)
+    {
+        return $token ? ['pageToken' => $token] : [];
+    }
     /**
      * @param $calendarId
      *
