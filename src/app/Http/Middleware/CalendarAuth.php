@@ -16,8 +16,6 @@ class CalendarAuth
      */
     public function handle($request, Closure $next)
     {
-        abort(403);
-
         if (app()->environment() != 'production') {
             return $next($request);
         }
