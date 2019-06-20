@@ -2,7 +2,7 @@
 
 
 Route::group([
-    'namespace' => 'onethirtyone\GoogleCalendar\app\Http\Controllers',
+    'namespace' => 'onethirtyone\GoogleCalendar\App\Http\Controllers',
     'prefix' => '/google/calendar',
     'middleware' => 'web',
 ], function () {
@@ -24,7 +24,6 @@ Route::group([
 
     route::get('stop','CalendarWebhookController@unRegister')
         ->name('calendar.webhook.unregister');
-
 
 });
 

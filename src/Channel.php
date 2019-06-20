@@ -5,7 +5,7 @@ namespace onethirtyone\GoogleCalendar;
 
 
 use Illuminate\Support\Str;
-use onethirtyone\GoogleCalendar\app\GoogleClient;
+use onethirtyone\GoogleCalendar\App\GoogleClient;
 
 /**
  * Class Channel

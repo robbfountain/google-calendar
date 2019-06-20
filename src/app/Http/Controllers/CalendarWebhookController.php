@@ -1,6 +1,6 @@
 <?php
 
-namespace onethirtyone\GoogleCalendar\app\Http\Controllers;
+namespace onethirtyone\GoogleCalendar\App\Http\Controllers;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;

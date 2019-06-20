@@ -3,7 +3,6 @@
 namespace onethirtyone\GoogleCalendar;
 
 use Illuminate\Support\ServiceProvider;
-use onethirtyone\GoogleCalendar\classes\Calendar;
 
 class GoogleCalendarServiceProvider extends ServiceProvider
 {
@@ -19,7 +18,7 @@ class GoogleCalendarServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
 
-        $this->loadViewsFrom(__DIR__ . '/resources/views','GoogleCalendar');
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'GoogleCalendar');
     }
 
     public function register()
