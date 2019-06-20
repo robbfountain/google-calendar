@@ -20,7 +20,7 @@ class CalendarAuth
             return $next($request);
         }
 
-        if(in_array($request->user()->id, config('google-calendar.permitted_users'))){
+        if($request->user() && in_array($request->user()->id, config('google-calendar.permitted_users'))){
             return $next($request);
         }
 
