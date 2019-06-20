@@ -111,6 +111,7 @@ class Event
         $googleCalendar = static::getGoogleCalendarInstance($calendarId);
 
         $calendarEventsCollection = [];
+
         $pageToken = null;
 
         do {
@@ -120,7 +121,7 @@ class Event
                 );
             } catch (\Exception $e) {
                 if ($e->getCode() == 410) {
-                    Client::updateClientWithSyncToken(null);
+                    Client::updateClientWithSyncToken();
                 }
             }
 

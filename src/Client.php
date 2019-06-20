@@ -112,7 +112,7 @@ class Client
         static::updateClientWithFreshData($attributes);
     }
 
-    public static function updateClientWithSyncToken(string $token)
+    public static function updateClientWithSyncToken(string $token = null)
     {
         static::updateClientWithFreshData(['sync_token' => $token]);
     }
