@@ -90,6 +90,23 @@ class Client
         ]);
     }
 
+    public static function updateClientWithFreshData(array $attributes)
+    {
+        $client = GoogleClient::first();
+
+        $client->update($attributes);
+    }
+
+    public static function hasSyncToken()
+    {
+        return GoogleClient::first()->sync_token != null;
+    }
+
+    public static function getSyncToken()
+    {
+        return GoogleClient::first()->sync_token;
+    }
+
     public static function updateClientWithChannel(array $attributes)
     {
         static::updateClientWithFreshData($attributes);
@@ -97,7 +114,7 @@ class Client
 
     public static function updateClientWithSyncToken(string $token)
     {
-      static::updateClientWithFreshData(['sync_token' => $token]);
+        static::updateClientWithFreshData(['sync_token' => $token]);
     }
 
     /**
@@ -118,13 +135,6 @@ class Client
         return GoogleClient::create([
             'credentials' => $this->client->fetchAccessTokenWithAuthCode($code),
         ]);
-    }
-
-    public static function updateClientWithFreshData(array $attributes)
-    {
-        $client = GoogleClient::first();
-
-        $client->update($attributes);
     }
 
 }

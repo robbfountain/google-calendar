@@ -147,7 +147,11 @@ class Calendar
      */
     public function listAllEvents($parameters)
     {
-        return $this->googleCalendar->events->listEvents($this->calendarId, $parameters);
+        $defaultParameters = [
+            'singleEvents' => true,
+        ];
+
+        return $this->googleCalendar->events->listEvents($this->calendarId, array_merge($defaultParameters, $parameters));
     }
 
 

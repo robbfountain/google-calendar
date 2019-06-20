@@ -28,7 +28,6 @@ class Event
      */
     public $attendees;
 
-
     /**
      * Event constructor.
      */
@@ -72,6 +71,19 @@ class Event
     }
 
     /**
+     * @param $events
+     * @param $calendarId
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public static function mapIntoCalendarEvent($events, $calendarId)
+    {
+        return collect($events)->map(function ($event) use ($calendarId) {
+            return static::createFromGoogleCalendarEvent($event, $calendarId);
+        });
+    }
+
+    /**
      * @param Google_Service_Calendar_Event $googleEvent
      * @param                               $calendarId
      *
@@ -102,9 +114,15 @@ class Event
         $pageToken = null;
 
         do {
-            $calendarEvents = $googleCalendar->listAllEvents(
-                array_merge($parameters, static::getPageToken($pageToken))
-            );
+            try {
+                $calendarEvents = $googleCalendar->listAllEvents(
+                    array_merge($parameters, static::getPageOrSyncToken($pageToken))
+                );
+            } catch (\Exception $e) {
+                if ($e->getCode() == 410) {
+                    Client::updateClientWithSyncToken(null);
+                }
+            }
 
             $calendarEventsCollection = array_merge($calendarEventsCollection, $calendarEvents->getItems());
 
@@ -118,16 +136,16 @@ class Event
         return static::mapIntoCalendarEvent($calendarEventsCollection, $calendarId);
     }
 
-    public static function mapIntoCalendarEvent($events, $calendarId)
+    /**
+     * @param $token
+     *
+     * @return array
+     */
+    public static function getPageOrSyncToken($token)
     {
-        return collect($events)->map(function ($event) use ($calendarId) {
-            return static::createFromGoogleCalendarEvent($event, $calendarId);
-        });
-    }
-
-    public static function getPageToken($token)
-    {
-        return $token ? ['pageToken' => $token] : [];
+        return Client::hasSyncToken()
+            ? ['syncToken' => Client::getSyncToken()]
+            : ($token ? ['pageToken' => $token] : []);
     }
 
     /**
@@ -154,7 +172,7 @@ class Event
 
     /**
      * @param string|null $method
-     * @param array        $optParams
+     * @param array       $optParams
      *
      * @return Event
      * @throws \Google_Exception
@@ -180,6 +198,13 @@ class Event
         return $this->id != '';
     }
 
+    /**
+     * @param        $eventId
+     * @param string $calendarId
+     *
+     * @return Event
+     * @throws \Google_Exception
+     */
     public static function find($eventId, string $calendarId = mnull)
     {
         $googleCalendar = static::getGoogleCalendarInstance($calendarId);
