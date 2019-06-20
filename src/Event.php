@@ -216,6 +216,8 @@ class Event
 
     /**
      * @param string|null $eventId
+     *
+     * @throws \Google_Exception
      */
     public function delete(string $eventId = null)
     {
