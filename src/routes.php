@@ -4,7 +4,7 @@
 Route::group([
     'namespace' => 'onethirtyone\GoogleCalendar\App\Http\Controllers',
     'prefix' => '/google/calendar',
-    'middleware' => 'web',
+    'middleware' => 'onethirtyone\GoogleCalendar\App\Http\Middleware\CalendarAuth',
 ], function () {
 
     Route::get('/', 'CalendarOauthController@index')
@@ -16,9 +16,6 @@ Route::group([
     Route::get('unregister', 'CalendarOauthController@unRegister')
         ->name('calendar.oauth.unregister');
 
-    Route::post('webhook', 'CalendarWebhookController@handle')
-        ->name('calendar.webhook');
-
     Route::get('register', 'CalendarWebhookController@register')
         ->name('calendar.webhook.register');
 
@@ -27,3 +24,12 @@ Route::group([
 
 });
 
+Route::group([
+    'namespace' => 'onethirtyone\GoogleCalendar\App\Http\Controllers',
+    'prefix' => '/google/calendar',
+], function () {
+
+    Route::post('webhook', 'CalendarWebhookController@handle')
+        ->name('calendar.webhook');
+
+});
