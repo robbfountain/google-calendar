@@ -85,11 +85,19 @@ class Client
      */
     public function updateClientWithNewToken()
     {
-        $client = GoogleClient::first();
-
-        $client->update([
+        static::updateClientWithFreshData([
             'credentials' => $this->client->getAccessToken(),
         ]);
+    }
+
+    public static function updateClientWithChannel(array $attributes)
+    {
+        static::updateClientWithFreshData($attributes);
+    }
+
+    public static function updateClientWithSyncToken(string $token)
+    {
+      static::updateClientWithFreshData(['sync_token' => $token]);
     }
 
     /**
@@ -112,19 +120,11 @@ class Client
         ]);
     }
 
-    public static function updateClientWithChannel(array $attributes)
+    public static function updateClientWithFreshData(array $attributes)
     {
         $client = GoogleClient::first();
 
         $client->update($attributes);
-    }
-
-
-    public static function updateClientWithSyncToken(string $token)
-    {
-        $client = GoogleClient::first();
-
-        $client->update(['sync_token' => $token]);
     }
 
 }

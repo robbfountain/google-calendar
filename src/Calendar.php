@@ -63,16 +63,29 @@ class Calendar
         return $this->googleCalendar->events->update($this->calendarId, $event->id, $event);
     }
 
+    /**
+     * @param $channel
+     *
+     * @return \Google_Service_Calendar_Channel
+     */
     public function watch($channel)
     {
         return $this->googleCalendar->events->watch($this->calendarId, $channel);
     }
 
+    /**
+     * @param $channel
+     *
+     * @return \expectedClass|\Google_Http_Request
+     */
     public function stop($channel)
     {
         return $this->googleCalendar->channels->stop($channel);
     }
 
+    /**
+     * @return mixed
+     */
     public static function hasExistingWebhooks()
     {
         return GoogleClient::where('channel_unique_id','!=',null)->exists();
@@ -106,26 +119,38 @@ class Calendar
     public function listEvents($start, $end, $parameters)
     {
         $defaultParameters = [
-//            'singleEvents' => true,
-//            'orderBy' => 'startTime',
+            'singleEvents' => true,
+            'orderBy' => 'startTime',
         ];
 
         if (is_null($start)) {
-       //     $start = Carbon::now()->startOfDay();
+            $start = Carbon::now()->startOfDay();
         }
 
-//        $defaultParameters['timeMin'] = $start->format(\DateTime::RFC3339);
-//
-//        if (is_null($end)) {
-//            $end = Carbon::now()->endOfYear();
-//        }
-//
-//        $defaultParameters['timeMax'] = $end->format(\DateTime::RFC3339);
+        $defaultParameters['timeMin'] = $start->format(\DateTime::RFC3339);
+
+        if (is_null($end)) {
+            $end = Carbon::now()->endOfYear();
+        }
+
+        $defaultParameters['timeMax'] = $end->format(\DateTime::RFC3339);
 
         $defaultParameters = array_merge($defaultParameters, $parameters);
 
         return $this->googleCalendar->events->listEvents($this->calendarId, $defaultParameters);
     }
+
+    /**
+     * @param $parameters
+     *
+     * @return \Google_Service_Calendar_Events
+     */
+    public function listAllEvents($parameters)
+    {
+        return $this->googleCalendar->events->listEvents($this->calendarId, $parameters);
+    }
+
+
 
     /**
      * @param $eventId
