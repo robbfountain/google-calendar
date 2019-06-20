@@ -4,7 +4,7 @@
 Route::group([
     'namespace' => 'onethirtyone\GoogleCalendar\App\Http\Controllers',
     'prefix' => '/google/calendar',
-    'middleware' => 'onethirtyone\GoogleCalendar\App\Http\Middleware\CalendarAuth',
+    'middleware' => \onethirtyone\GoogleCalendar\App\Http\Middleware\CalendarAuth::class,
 ], function () {
 
     Route::get('/', 'CalendarOauthController@index')
