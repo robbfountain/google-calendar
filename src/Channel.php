@@ -80,12 +80,14 @@ class Channel
     }
 
     /**
+     * @param null $calendarId
+     *
      * @return $this
      * @throws \Google_Exception
      */
-    public function save()
+    public function save($calendarId = null)
     {
-        $googleCalendar = GoogleCalendarFactory::getInstanceWithCalendarId('primary');
+        $googleCalendar = static::getGoogleCalendarInstance($calendarId);
         $channel = $googleCalendar->watch($this->channel);
         Client::updateClientWithChannel([
             'channel_unique_id' => $channel->getId(),
@@ -98,12 +100,14 @@ class Channel
     }
 
     /**
+     * @param null $calendarId
+     *
      * @return $this
      * @throws \Google_Exception
      */
-    public function stop()
+    public function stop($calendarId = null)
     {
-        $googleCalendar = GoogleCalendarFactory::getInstanceWithCalendarId('primary');
+        $googleCalendar = static::getGoogleCalendarInstance($calendarId);
         $googleCalendar->stop($this->channel);
         Client::updateClientWithChannel([
             'channel_unique_id' => null,
@@ -115,5 +119,16 @@ class Channel
         return $this;
     }
 
+    /**
+     * @param $calendarId
+     *
+     * @return Calendar
+     * @throws \Google_Exception
+     */
+    protected static function getGoogleCalendarInstance($calendarId)
+    {
+        $calendarId = $calendarId ?? 'primary';
 
+        return GoogleCalendarFactory::getInstanceWithCalendarId($calendarId);
+    }
 }
