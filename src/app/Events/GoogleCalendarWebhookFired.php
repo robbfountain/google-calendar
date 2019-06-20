@@ -2,35 +2,27 @@
 
 namespace onethirtyone\GoogleCalendar\App\Events;
 
-use Illuminate\Broadcasting\Channel;
+use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class GoogleCalendarWebhookFired
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
-     * Create a new event instance.
-     *
-     * @return void
+     * @var Request
      */
-    public function __construct()
-    {
-        //
-    }
+    public $request;
 
     /**
-     * Get the channels the event should broadcast on.
+     * Create a new event instance.
      *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @param Request $request
      */
-    public function broadcastOn()
+    public function __construct(Request $request)
     {
-        return new PrivateChannel('channel-name');
+        $this->request = $request;
     }
 }
