@@ -90,6 +90,9 @@ class Client
         ]);
     }
 
+    /**
+     * @param array $attributes
+     */
     public static function updateClientWithFreshData(array $attributes)
     {
         $client = GoogleClient::first();
@@ -97,21 +100,33 @@ class Client
         $client->update($attributes);
     }
 
+    /**
+     * @return bool
+     */
     public static function hasSyncToken()
     {
         return GoogleClient::first()->sync_token != null;
     }
 
+    /**
+     * @return mixed
+     */
     public static function getSyncToken()
     {
         return GoogleClient::first()->sync_token;
     }
 
+    /**
+     * @param array $attributes
+     */
     public static function updateClientWithChannel(array $attributes)
     {
         static::updateClientWithFreshData($attributes);
     }
 
+    /**
+     * @param string|null $token
+     */
     public static function updateClientWithSyncToken(string $token = null)
     {
         static::updateClientWithFreshData(['sync_token' => $token]);
