@@ -33,7 +33,7 @@ class CalendarWebhookController
         $channel = new Channel();
         $channel->id = Uuid::uuid4();
         $channel->type = 'web_hook';
-        $channel->address = Url::to('/') . 'google/calendar/webhook';
+        $channel->address = Url::to('/') . '/google/calendar/webhook';
         $channel->save();
 
         return redirect()
