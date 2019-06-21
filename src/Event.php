@@ -206,7 +206,7 @@ class Event
      * @return Event
      * @throws \Google_Exception
      */
-    public static function find($eventId, string $calendarId = mnull)
+    public static function find($eventId, string $calendarId = null)
     {
         $googleCalendar = static::getGoogleCalendarInstance($calendarId);
 
