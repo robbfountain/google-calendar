@@ -93,6 +93,7 @@ class Event
      */
     public static function createFromGoogleCalendarEvent(Google_Service_Calendar_Event $googleEvent, $calendarId)
     {
+        Log::info('Creating Event');
         $event = new static;
 
         $event->googleEvent = $googleEvent;
