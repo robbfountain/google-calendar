@@ -109,6 +109,7 @@ class Event
      */
     public static function sync(array $parameters = [], string $calendarId = null)
     {
+        Log::info("Starting Sync");
         $googleCalendar = static::getGoogleCalendarInstance($calendarId);
 
         $calendarEventsCollection = [];
