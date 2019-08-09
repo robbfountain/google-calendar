@@ -136,8 +136,7 @@ class Event
             Client::updateClientWithSyncToken($calendarEvents->getNextSyncToken());
         }
 
-        Log::info(json_encode($calendarEventsCollection));
-        
+
         return static::mapIntoCalendarEvent($calendarEventsCollection, $calendarId);
     }
 
