@@ -109,7 +109,6 @@ class Event
      */
     public static function sync(array $parameters = [], string $calendarId = null)
     {
-        Log::info("Starting Sync");
         $googleCalendar = static::getGoogleCalendarInstance($calendarId);
 
         $calendarEventsCollection = [];
@@ -136,6 +135,7 @@ class Event
             Client::updateClientWithSyncToken($calendarEvents->getNextSyncToken());
         }
 
+        Log::info('Reached the last part');
 
         return static::mapIntoCalendarEvent($calendarEventsCollection, $calendarId);
     }
