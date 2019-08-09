@@ -79,6 +79,7 @@ class Event
      */
     public static function mapIntoCalendarEvent($events, $calendarId)
     {
+        Log::info('Mapping into calendar events');
         return collect($events)->map(function ($event) use ($calendarId) {
             return static::createFromGoogleCalendarEvent($event, $calendarId);
         });
