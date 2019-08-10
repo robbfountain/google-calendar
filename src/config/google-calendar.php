@@ -19,6 +19,17 @@ return [
      */
     'permitted_users' => [
         // your@email.com
-    ]
+    ],
+
+    /**
+     * Middleware
+     *
+     * This setting controls the middleware used for determining who can link
+     * a google calendar and enable webhooks
+     */
+    'middleware' => [
+        'web',
+        onethirtyone\GoogleCalendar\App\Http\Middleware\CalendarAuth::class,
+    ],
 ];
 

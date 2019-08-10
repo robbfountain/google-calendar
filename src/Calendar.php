@@ -35,6 +35,14 @@ class Calendar
     }
 
     /**
+     * @return mixed
+     */
+    public static function hasExistingWebhooks()
+    {
+        return GoogleClient::where('channel_unique_id', '!=', null)->exists();
+    }
+
+    /**
      * @param       $event
      * @param array $optParams
      *
@@ -46,7 +54,9 @@ class Calendar
             $event = $event->googleEvent;
         }
 
-        return $this->googleCalendar->events->insert($this->calendarId, $event, $optParams);
+        return $this->googleCalendar->events->insert(
+            $this->calendarId, $event, $optParams
+        );
     }
 
     /**
@@ -60,7 +70,9 @@ class Calendar
             $event = $event->googleEvent;
         }
 
-        return $this->googleCalendar->events->update($this->calendarId, $event->id, $event);
+        return $this->googleCalendar->events->update(
+            $this->calendarId, $event->id, $event
+        );
     }
 
     /**
@@ -70,7 +82,9 @@ class Calendar
      */
     public function watch($channel)
     {
-        return $this->googleCalendar->events->watch($this->calendarId, $channel);
+        return $this->googleCalendar->events->watch(
+            $this->calendarId, $channel
+        );
     }
 
     /**
@@ -81,14 +95,6 @@ class Calendar
     public function stop($channel)
     {
         return $this->googleCalendar->channels->stop($channel);
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function hasExistingWebhooks()
-    {
-        return GoogleClient::where('channel_unique_id','!=',null)->exists();
     }
 
     /**
@@ -137,7 +143,9 @@ class Calendar
 
         $defaultParameters = array_merge($defaultParameters, $parameters);
 
-        return $this->googleCalendar->events->listEvents($this->calendarId, $defaultParameters);
+        return $this->googleCalendar->events->listEvents(
+            $this->calendarId, $defaultParameters
+        );
     }
 
     /**
@@ -148,12 +156,13 @@ class Calendar
     public function listAllEvents($parameters)
     {
         $defaultParameters = [
-          //  'singleEvents' => true,
+            //  'singleEvents' => true,
         ];
 
-        return $this->googleCalendar->events->listEvents($this->calendarId, array_merge($defaultParameters, $parameters));
+        return $this->googleCalendar->events->listEvents(
+            $this->calendarId, array_merge($defaultParameters, $parameters)
+        );
     }
-
 
 
     /**

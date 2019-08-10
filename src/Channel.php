@@ -89,6 +89,7 @@ class Channel
     {
         $googleCalendar = static::getGoogleCalendarInstance($calendarId);
         $channel = $googleCalendar->watch($this->channel);
+
         Client::updateClientWithChannel([
             'channel_unique_id' => $channel->getId(),
             'channel_resource_id' => $channel->getResourceId(),
@@ -109,6 +110,7 @@ class Channel
     {
         $googleCalendar = static::getGoogleCalendarInstance($calendarId);
         $googleCalendar->stop($this->channel);
+
         Client::updateClientWithChannel([
             'channel_unique_id' => null,
             'channel_resource_id' => null,

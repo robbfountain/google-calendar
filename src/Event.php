@@ -5,7 +5,6 @@ namespace onethirtyone\GoogleCalendar;
 use DateTime;
 use Carbon\Carbon;
 use Google_Service_Calendar_Event;
-use Illuminate\Support\Facades\Log;
 use Google_Service_Calendar_EventDateTime;
 
 /**
@@ -48,9 +47,9 @@ class Event
      * @throws \Google_Exception
      */
     public static function list(Carbon $start = null,
-        Carbon $end = null,
-        array $parameters = [],
-        string $calendarId = null)
+                                Carbon $end = null,
+                                array $parameters = [],
+                                string $calendarId = null)
     {
         $googleCalendar = static::getGoogleCalendarInstance($calendarId);
         $calendarEvents = $googleCalendar->listEvents($start, $end, $parameters);
@@ -79,7 +78,6 @@ class Event
      */
     public static function mapIntoCalendarEvent($events, $calendarId)
     {
-        Log::info('Mapping into calendar events');
         return collect($events)->map(function ($event) use ($calendarId) {
             return static::createFromGoogleCalendarEvent($event, $calendarId);
         });
@@ -93,7 +91,6 @@ class Event
      */
     public static function createFromGoogleCalendarEvent(Google_Service_Calendar_Event $googleEvent, $calendarId)
     {
-        Log::info('Creating Event');
         $event = new static;
 
         $event->googleEvent = $googleEvent;
@@ -136,8 +133,6 @@ class Event
         if (!is_null($calendarEvents->getNextSyncToken())) {
             Client::updateClientWithSyncToken($calendarEvents->getNextSyncToken());
         }
-
-        Log::info('Reached the last part');
 
         return static::mapIntoCalendarEvent($calendarEventsCollection, $calendarId);
     }
@@ -262,6 +257,7 @@ class Event
 
         if (in_array($name, ['start.date', 'end.date', 'start.dateTime', 'end.dateTime'])) {
             $this->formatForDateTime($name, $value);
+
             return;
         }
 

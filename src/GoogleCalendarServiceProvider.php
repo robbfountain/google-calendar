@@ -4,8 +4,15 @@ namespace onethirtyone\GoogleCalendar;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class GoogleCalendarServiceProvider
+ * @package onethirtyone\GoogleCalendar
+ */
 class GoogleCalendarServiceProvider extends ServiceProvider
 {
+    /**
+     *
+     */
     public function boot()
     {
         $this->publishes([
@@ -21,6 +28,9 @@ class GoogleCalendarServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'GoogleCalendar');
     }
 
+    /**
+     *
+     */
     public function register()
     {
         $this->mergeConfigFrom(

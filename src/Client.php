@@ -57,7 +57,9 @@ class Client
 
             if ($this->client->isAccessTokenExpired()) {
                 if ($this->client->getRefreshToken()) {
-                    $this->client->fetchAccessTokenWithRefreshToken($this->client->getRefreshToken());
+                    $this->client->fetchAccessTokenWithRefreshToken(
+                        $this->client->getRefreshToken()
+                    );
                     $this->updateClientWithNewToken();
                 }
             }
