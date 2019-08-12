@@ -3,6 +3,7 @@
 namespace onethirtyone\GoogleCalendar\App\Http\Controllers;
 
 use Google_Exception;
+use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -63,6 +64,7 @@ class CalendarWebhookController
      */
     public function handle(Request $request)
     {
+        Log::info('Webhook Hit');
         event(new GoogleCalendarWebhookFired($request));
 
         return response([], 200);
