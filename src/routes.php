@@ -27,7 +27,7 @@ Route::group([
 Route::group([
     'namespace' => 'onethirtyone\GoogleCalendar\App\Http\Controllers',
     'prefix' => '/google/calendar',
-    'middleware' => config('google-calendar.middleware')
+    'middleware' => 'web',
 ], function () {
 
     Route::post('webhook', 'CalendarWebhookController@handle')
