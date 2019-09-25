@@ -5,6 +5,7 @@ namespace onethirtyone\GoogleCalendar;
 use DateTime;
 use Carbon\Carbon;
 use Google_Service_Calendar_Event;
+use Illuminate\Support\Facades\Log;
 use Google_Service_Calendar_EventDateTime;
 
 /**
@@ -122,6 +123,7 @@ class Event
             } catch (\Exception $e) {
                 if ($e->getCode() == 410) {
                     Client::updateClientWithSyncToken();
+                    Log::info('Exception Hit');
                 }
             }
 
