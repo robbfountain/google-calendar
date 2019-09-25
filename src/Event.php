@@ -136,6 +136,8 @@ class Event
             Client::updateClientWithSyncToken($calendarEvents->getNextSyncToken());
         }
 
+        Log::info('Returned this many events ' . collect($calendarEventsCollection)->count());
+
         return static::mapIntoCalendarEvent($calendarEventsCollection, $calendarId);
     }
 
