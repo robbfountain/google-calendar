@@ -123,7 +123,6 @@ class Event
             } catch (\Exception $e) {
                 if ($e->getCode() == 410) {
                     Client::updateClientWithSyncToken();
-                    Log::info('Exception Hit');
                 }
             }
 
@@ -135,9 +134,7 @@ class Event
         if (!is_null($calendarEvents->getNextSyncToken())) {
             Client::updateClientWithSyncToken($calendarEvents->getNextSyncToken());
         }
-
-        Log::info('Returned this many events ' . collect($calendarEventsCollection)->count());
-
+        
         return static::mapIntoCalendarEvent($calendarEventsCollection, $calendarId);
     }
 
