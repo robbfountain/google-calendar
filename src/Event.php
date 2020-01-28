@@ -5,6 +5,7 @@ namespace onethirtyone\GoogleCalendar;
 use DateTime;
 use Carbon\Carbon;
 use Google_Service_Calendar_Event;
+use Illuminate\Support\Facades\Log;
 use Google_Service_Calendar_EventDateTime;
 
 /**
@@ -133,7 +134,7 @@ class Event
         if (!is_null($calendarEvents->getNextSyncToken())) {
             Client::updateClientWithSyncToken($calendarEvents->getNextSyncToken());
         }
-
+        
         return static::mapIntoCalendarEvent($calendarEventsCollection, $calendarId);
     }
 

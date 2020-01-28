@@ -64,7 +64,6 @@ class CalendarWebhookController
      */
     public function handle(Request $request)
     {
-        Log::info('Webhook Hit');
         event(new GoogleCalendarWebhookFired($request));
 
         return response([], 200);
