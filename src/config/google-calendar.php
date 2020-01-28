@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     /**
      * The Path to your Google Calendar API Credentials File
      */
@@ -18,7 +19,16 @@ return [
      * By default all users will have access while in local or development All other access will be controlled
      */
     'permitted_users' => [
-        // your@email.com
+        // 'your@email.com'
+    ],
+
+    /**
+     * Permitted Permission Groups
+     *
+     * The groups that are permitted to link a google calendar
+     */
+    'permitted_groups' => [
+        // 'Administrators',
     ],
 
     /**

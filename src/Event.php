@@ -47,9 +47,9 @@ class Event
      * @throws \Google_Exception
      */
     public static function list(Carbon $start = null,
-                                Carbon $end = null,
-                                array $parameters = [],
-                                string $calendarId = null)
+        Carbon $end = null,
+        array $parameters = [],
+        string $calendarId = null)
     {
         $googleCalendar = static::getGoogleCalendarInstance($calendarId);
         $calendarEvents = $googleCalendar->listEvents($start, $end, $parameters);

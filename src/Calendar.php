@@ -141,10 +141,8 @@ class Calendar
 
         $defaultParameters['timeMax'] = $end->format(\DateTime::RFC3339);
 
-        $defaultParameters = array_merge($defaultParameters, $parameters);
-
         return $this->googleCalendar->events->listEvents(
-            $this->calendarId, $defaultParameters
+            $this->calendarId, array_merge($defaultParameters, $parameters)
         );
     }
 
@@ -163,7 +161,6 @@ class Calendar
             $this->calendarId, array_merge($defaultParameters, $parameters)
         );
     }
-
 
     /**
      * @param $eventId

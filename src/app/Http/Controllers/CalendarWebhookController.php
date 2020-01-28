@@ -3,10 +3,10 @@
 namespace onethirtyone\GoogleCalendar\App\Http\Controllers;
 
 use Google_Exception;
-use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\RedirectResponse;
 use onethirtyone\GoogleCalendar\Channel;
