@@ -2,7 +2,7 @@
   "name": "onethirtyone/google-calendar",
   "description": "Manage events on a Google Calendar",
   "require": {
-    "php": "^7.0",
+    "php": "^7.0 || ^8.0",
     "google/apiclient": "^2.2",
     "nesbot/carbon": "^1.21 || ^2.0"
   },
