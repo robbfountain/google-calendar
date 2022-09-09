@@ -1,16 +1,16 @@
 <?php
 
 
-namespace onethirtyone\GoogleCalendar;
+namespace OneThirtyOne\GoogleCalendar;
 
 use Google_Client;
 use Google_Service_Calendar;
 use Illuminate\Support\Facades\URL;
-use onethirtyone\GoogleCalendar\App\GoogleClient;
+use OneThirtyOne\GoogleCalendar\App\GoogleClient;
 
 /**
  * Class Client
- * @package onethirtyone\GoogleCalendar
+ * @package OneThirtyOne\GoogleCalendar
  */
 class Client
 {

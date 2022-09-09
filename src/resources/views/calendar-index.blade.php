@@ -35,7 +35,7 @@
                                 Unlink Calendar
                             </a>
                         @else
-                            <a href="{{(new \onethirtyone\GoogleCalendar\Client)->authUrl()}}"
+                            <a href="{{(new \OneThirtyOne\GoogleCalendar\Client)->authUrl()}}"
                                class="rounded px-4 py-3 text-lg bg-blue-500 hover:bg-blue-600 text-white">
                                 Link Calendar
                             </a>

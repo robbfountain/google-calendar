@@ -1,20 +1,19 @@
 <?php
 
-namespace onethirtyone\GoogleCalendar\App\Http\Controllers;
+namespace OneThirthOne\GoogleCalendar\App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use onethirtyone\GoogleCalendar\Client;
-use onethirtyone\GoogleCalendar\Channel;
-use onethirtyone\GoogleCalendar\Calendar;
-use onethirtyone\GoogleCalendar\app\GoogleClient;
+use OneThirtyOne\GoogleCalendar\Client;
+use OneThirtyOne\GoogleCalendar\Channel;
+use OneThirtyOne\GoogleCalendar\Calendar;
+use OneThirtyOne\GoogleCalendar\App\GoogleClient;
 
 /**
  * Class CalendarOauthController
- * @package onethirtyone\GoogleCalendar\app\Http\Controllers
+ * @package OneThirtyOne\GoogleCalendar\App\Http\Controllers
  */
 class CalendarOauthController
 {
-
     /**
      * Process callback from Google Client OAuth Request
      *

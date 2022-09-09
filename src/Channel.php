@@ -1,15 +1,15 @@
 <?php
 
 
-namespace onethirtyone\GoogleCalendar;
+namespace OneThirtyOne\GoogleCalendar;
 
 
 use Illuminate\Support\Str;
-use onethirtyone\GoogleCalendar\App\GoogleClient;
+use OneThirtyOne\GoogleCalendar\App\GoogleClient;
 
 /**
  * Class Channel
- * @package onethirtyone\GoogleCalendar
+ * @package OneThirtyOne\GoogleCalendar
  */
 class Channel
 {

@@ -1,10 +1,9 @@
 <?php
 
-
 Route::group([
-    'namespace' => 'onethirtyone\GoogleCalendar\App\Http\Controllers',
+    'namespace' => 'OneThirtyOne\GoogleCalendar\App\Http\Controllers',
     'prefix' => '/google/calendar',
-    'middleware' => ['web',\onethirtyone\GoogleCalendar\App\Http\Middleware\CalendarAuth::class],
+    'middleware' => ['web',\OneThirtyOne\GoogleCalendar\App\Http\Middleware\CalendarAuth::class],
 ], function () {
 
     Route::get('/', 'CalendarOauthController@index')
@@ -25,7 +24,7 @@ Route::group([
 });
 
 Route::group([
-    'namespace' => 'onethirtyone\GoogleCalendar\App\Http\Controllers',
+    'namespace' => 'OneThirtyOne\GoogleCalendar\App\Http\Controllers',
     'prefix' => '/google/calendar',
     'middleware' => 'web',
 ], function () {

@@ -1,6 +1,6 @@
 <?php
 
-namespace onethirtyone\GoogleCalendar;
+namespace OneThirtyOne\GoogleCalendar;
 
 use DateTime;
 use Carbon\Carbon;
@@ -10,7 +10,7 @@ use Google_Service_Calendar_EventDateTime;
 
 /**
  * Class Event
- * @package onethirtyone\GoogleCalendar
+ * @package OneThirtyOne\GoogleCalendar
  */
 class Event
 {

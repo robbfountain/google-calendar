@@ -1,13 +1,13 @@
 <?php
 
 
-namespace onethirtyone\GoogleCalendar;
+namespace OneThirtyOne\GoogleCalendar;
 
 use Google_Service_Calendar;
 
 /**
  * Class GoogleCalendarFactory
- * @package onethirtyone\GoogleCalendar
+ * @package OneThirtyOne\GoogleCalendar
  */
 class GoogleCalendarFactory
 {

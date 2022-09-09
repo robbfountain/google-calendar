@@ -1,14 +1,14 @@
 <?php
 
-namespace onethirtyone\GoogleCalendar;
+namespace OneThirtyOne\GoogleCalendar;
 
 use Carbon\Carbon;
 use Google_Service_Calendar;
-use onethirtyone\GoogleCalendar\App\GoogleClient;
+use OneThirtyOne\GoogleCalendar\App\GoogleClient;
 
 /**
  * Class Calendar
- * @package onethirtyone\GoogleCalendar
+ * @package OneThirtyOne\GoogleCalendar
  */
 class Calendar
 {

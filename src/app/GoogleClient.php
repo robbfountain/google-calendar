@@ -1,12 +1,12 @@
 <?php
 
-namespace onethirtyone\GoogleCalendar\App;
+namespace OneThirtyOne\GoogleCalendar\App;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class GoogleClient
- * @package onethirtyone\GoogleCalendar\App
+ * @package OneThirtyOne\GoogleCalendar\App
  */
 class GoogleClient extends Model
 {

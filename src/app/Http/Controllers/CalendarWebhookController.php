@@ -1,6 +1,6 @@
 <?php
 
-namespace onethirtyone\GoogleCalendar\App\Http\Controllers;
+namespace OneThirtyOne\GoogleCalendar\App\Http\Controllers;
 
 use Google_Exception;
 use Illuminate\Support\Facades\Log;
@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\RedirectResponse;
-use onethirtyone\GoogleCalendar\Channel;
+use OneThirtyOne\GoogleCalendar\Channel;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use onethirtyone\GoogleCalendar\App\Events\GoogleCalendarWebhookFired;
+use OneThirtyOne\GoogleCalendar\App\Events\GoogleCalendarWebhookFired;
 
 /**
  * Class CalendarWebhookController
- * @package onethirtyone\GoogleCalendar\App\Http\Controllers
+ * @package OneThirtyOne\GoogleCalendar\App\Http\Controllers
  */
 class CalendarWebhookController
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace onethirtyone\GoogleCalendar;
+namespace OneThirtyOne\GoogleCalendar;
 
 use Illuminate\Support\ServiceProvider;
 
 /**
  * Class GoogleCalendarServiceProvider
- * @package onethirtyone\GoogleCalendar
+ * @package OneThirtyOne\GoogleCalendar
  */
 class GoogleCalendarServiceProvider extends ServiceProvider
 {

@@ -29,7 +29,7 @@ return [
      */
     'middleware' => [
         'web',
-        onethirtyone\GoogleCalendar\App\Http\Middleware\CalendarAuth::class,
+        OneThirtyOne\GoogleCalendar\App\Http\Middleware\CalendarAuth::class,
     ],
 ];
 
