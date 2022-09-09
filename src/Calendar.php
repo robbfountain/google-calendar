@@ -4,7 +4,7 @@ namespace OneThirtyOne\GoogleCalendar;
 
 use Carbon\Carbon;
 use Google_Service_Calendar;
-use OneThirtyOne\GoogleCalendar\App\GoogleClient;
+use OneThirtyOne\GoogleCalendar\App\Models\GoogleClient;
 
 /**
  * Class Calendar

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use OneThirtyOne\GoogleCalendar\Client;
 use OneThirtyOne\GoogleCalendar\Channel;
 use OneThirtyOne\GoogleCalendar\Calendar;
-use OneThirtyOne\GoogleCalendar\App\GoogleClient;
+use OneThirtyOne\GoogleCalendar\App\Models\GoogleClient;
 
 /**
  * Class CalendarOauthController

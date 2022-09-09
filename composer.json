@@ -3,8 +3,8 @@
   "description": "Manage events on a Google Calendar",
   "require": {
     "php": "^7.0 || ^8.0",
-    "google/apiclient": "^2.2",
-    "nesbot/carbon": "^1.21 || ^2.0"
+    "laravel/laravel": "^8.0",
+    "google/apiclient": "^2.2"
   },
   "license": "MIT",
   "authors": [
