@@ -39,7 +39,8 @@ class Calendar
      */
     public static function hasExistingWebhooks()
     {
-        return GoogleClient::where('channel_unique_id', '!=', null)->exists();
+        return true;
+//        return GoogleClient::where('channel_unique_id', '!=', null)->exists();
     }
 
     /**
