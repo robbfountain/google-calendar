@@ -6,7 +6,7 @@ namespace OneThirtyOne\GoogleCalendar;
 use Google_Client;
 use Google_Service_Calendar;
 use Illuminate\Support\Facades\URL;
-use OneThirtyOne\GoogleCalendar\App\Models\GoogleClient;
+use OneThirtyOne\GoogleCalendar\app\Models\GoogleClient;
 
 /**
  * Class Client
