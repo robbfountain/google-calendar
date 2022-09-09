@@ -1,6 +1,6 @@
 <?php
 
-namespace OneThirtyOne\GoogleCalendar\App\Models;
+namespace OneThirtyOne\GoogleCalendar\app\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

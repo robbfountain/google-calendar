@@ -1,6 +1,6 @@
 <?php
 
-namespace OneThirtyOne\GoogleCalendar\App\Events;
+namespace OneThirtyOne\GoogleCalendar\app\Events;
 
 use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;

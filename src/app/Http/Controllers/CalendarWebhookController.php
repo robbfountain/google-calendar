@@ -1,6 +1,6 @@
 <?php
 
-namespace OneThirtyOne\GoogleCalendar\App\Http\Controllers;
+namespace OneThirtyOne\GoogleCalendar\app\Http\Controllers;
 
 use Google_Exception;
 use Illuminate\Support\Facades\Log;

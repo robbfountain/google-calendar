@@ -1,6 +1,6 @@
 <?php
 
-namespace OneThirtyOne\GoogleCalendar\App\Http\Middleware;
+namespace OneThirtyOne\GoogleCalendar\app\Http\Middleware;
 
 use Closure;
 
